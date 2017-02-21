@@ -30,6 +30,16 @@ class View{
 		getValue(){
 			return this.idField.value;
 		}
+
+		addEdit(tmpText,id){
+			var elem = this.idUl;
+			var edit = document.createElement("input");
+			alert(edit);
+			edit.setAttribute('value', tmpText);
+			this.appendChild(edit);
+			self.idUl.appendChild(edit);
+		}	
+
 		display(taskCollection){
 			var elem = this.idUl;
 			while (elem.firstChild) {
@@ -43,31 +53,25 @@ class View{
 				newLi.setAttribute('data-id', item.id);
 				console.log(newLi);
    				newLi.innerHTML =item.name;
-   				/*newLi.dbclick = function(){
+   				newLi.ondblclick = function(){
    					var tmpId = this.getAttribute('data-id');
    					var tmpText = this.textContent;
-   					var edit = document.createElement("input");
-   					edit.setAttribute('value', tmpText);
-   					this.appendChild(edit);
-   				}*/		
-   				self.idUl.appendChild(newLi);
+   					this.remove(); 				
+   				}	
 
-		});
+   				var newSpan = document.createElement("span");
+   				var txt = document.createTextNode("\u00D7");
+   				newSpan.appendChild(txt);
+   				newLi.appendChild(newSpan);		
+   				self.idUl.appendChild(newLi);   				
 
-				var nodeList = document.getElementsByTagName("li");
-				console.log(nodeList);
-				for (var i = 0; i < nodeList.length; i++) {
-  						var newSpan = document.createElement("span");
-  						var txt = document.createTextNode("\u00D7");
-  						newSpan.appendChild(txt);
-  						newSpan.onclick	=  function	(){
-  							var parentLi = this.parentElement;
-  							var idTask = parentLi.getAttribute('data-id');
+   				newSpan.onclick	=  function	(){
+  							var idTask = newLi.getAttribute('data-id');
   							alert('Удаляем задачу под номером...'+idTask);
   							self.onKeyRemovePressed(idTask);
   						}
-  						nodeList[i].appendChild(newSpan);
-				}
+  							
+		});
 
 		}
 

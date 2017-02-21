@@ -36,8 +36,7 @@ class View{
 			var edit = document.createElement("input");
 			alert(edit);
 			edit.setAttribute('value', tmpText);
-			this.appendChild(edit);
-			self.idUl.appendChild(edit);
+			elem.appendChild(edit);
 		}	
 
 		display(taskCollection){
@@ -56,7 +55,9 @@ class View{
    				newLi.ondblclick = function(){
    					var tmpId = this.getAttribute('data-id');
    					var tmpText = this.textContent;
-   					this.remove(); 				
+   					self.addEdit(tmpText,tmpId)
+   					this.remove(); 
+
    				}	
 
    				var newSpan = document.createElement("span");

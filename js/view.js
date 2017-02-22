@@ -33,11 +33,22 @@ class View{
 
 		addEdit(tmpText,id){
 			var elem = this.idUl;
+			var newLi = document.createElement('li');
 			var edit = document.createElement("input");
-			alert(edit);
 			edit.setAttribute('value', tmpText);
-			elem.appendChild(edit);
-		}	
+			newLi.appendChild(edit);
+			elem.appendChild(newLi);
+			console.log(elem.lastChild.firstChild);
+			elem.lastChild.firstChild.focus();
+
+			edit.onblur = function(){
+				/*передаю данные в модель Newname и eё id*/ 
+				console.log(this.value, id);
+				
+			}
+
+
+			}	
 
 		display(taskCollection){
 			var elem = this.idUl;
@@ -54,8 +65,8 @@ class View{
    				newLi.innerHTML =item.name;
    				newLi.ondblclick = function(){
    					var tmpId = this.getAttribute('data-id');
-   					var tmpText = this.textContent;
-   					self.addEdit(tmpText,tmpId)
+   					var tmpText = this.firstChild.data;
+   					self.addEdit(tmpText,tmpId);
    					this.remove(); 
 
    				}	

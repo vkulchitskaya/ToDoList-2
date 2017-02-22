@@ -1,4 +1,4 @@
-class View{
+export class View{
 	
 	constructor(idField,idButton,idUl,idButtonClear){
 		this.idField=qs(idField);

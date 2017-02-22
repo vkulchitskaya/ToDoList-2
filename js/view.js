@@ -18,6 +18,10 @@ class View{
 	
 		}
 
+		bindEditPressed (handler){
+			this.editPressed = handler;
+		}
+
 		bindButtonPressed (handler){
 			this.onKeyPressed = handler;
 		}
@@ -44,7 +48,8 @@ class View{
 			edit.onblur = function(){
 				/*передаю данные в модель Newname и eё id*/ 
 				console.log(this.value, id);
-				
+				self.editPressed(this.value,id);		
+
 			}
 
 

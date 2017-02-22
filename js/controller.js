@@ -5,6 +5,7 @@ class Controller{
 		this.view.bindButtonPressed(this.onKeyPressed.bind(this));
 		this.view.bindDisPressed(this.onKeyDisPressed.bind(this));
 		this.view.bindRemovePressed(this.onKeyRemovePressed.bind(this));
+		this.view.bindEditPressed(this.editPressed.bind(this));
 	}
 
 
@@ -31,6 +32,13 @@ class Controller{
 		this.taskCollection.rewrite();			
 		this.view.display(this.taskCollection);	
 
+	}
+
+	editPressed(name,id){
+		this.taskCollection.editTask(id,name);
+		this.taskCollection.rewrite();
+		this.view.display(this.taskCollection);
+			
 	}
 
 }

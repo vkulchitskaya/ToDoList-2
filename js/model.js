@@ -48,4 +48,12 @@ class TaskCollection{
 	incIndex(){
 		this.index++;
 	}
+
+	editTask(id,newName){
+		this.taskCollection.forEach(function(item){
+			if (item.id==id) {
+				item.name=newName;
+			}
+		});
+	}
 }

@@ -9,7 +9,6 @@ class Application{
 }
 
 window.onload = function(){
-import View from "view";
 var application = new Application();
 application.view.onKeyDisPressed();
 console.log(application.taskCollection);

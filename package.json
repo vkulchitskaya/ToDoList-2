@@ -1,0 +1,28 @@
+{
+  "name": "ToDoList-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build2": "babel *.js --out-file script-compiled.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vkulchitskaya/ToDoList-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vkulchitskaya/ToDoList-2/issues"
+  },
+  "homepage": "https://github.com/vkulchitskaya/ToDoList-2#readme",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-install": "^0.6.0"
+  }
+}

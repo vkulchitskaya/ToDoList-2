@@ -1,24 +1,39 @@
-var  
-    gulp = require('gulp'), // Сообственно Gulp JS
-    babel = require('gulp-babel'),
-    concat = require('gulp-concat');
+var gulp = require('gulp');
+var sourcemaps = require('gulp-sourcemaps');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var babel = require('babelify');
 
+function compile(watch) {
+  var bundler = watchify(browserify('./src/js/application.js', { debug: true }).transform(babel, { "presets": ["es2015"]} ));
 
-gulp.task('build', ['babel-js', 'copy-html']);
+  function rebundle() {
+    bundler.bundle()
+      .on('error', function(err) { console.error(err); this.emit('end'); })
+      .pipe(source('build.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./build'));
+  }
 
+  if (watch) {
+    bundler.on('update', function() {
+      console.log('-> bundling...');
+      rebundle();
+    });
+  }
 
-gulp.task('babel-js', function() {
-    return gulp.src('src/js/*.js')
-        .pipe(concat('script.js'))
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(gulp.dest('dist/js'));
-});
+  rebundle();
+}
 
+function watch() {
+  return compile(true);
+};
 
-gulp.task('copy-html', function() {
-   gulp.src('src/html/*.html')
-  		.pipe(gulp.dest('dist'));
-});
+gulp.task('build', function() { return compile(); });
+gulp.task('watch', function() { return watch(); });
 
+gulp.task('default', ['watch']);

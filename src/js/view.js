@@ -1,4 +1,6 @@
-class View{
+import {qs,qt} from './helpers';
+
+export class View{
 	
 	constructor(idField,idButton,idUl,idButtonClear){
 		this.idField=qs(idField);
@@ -25,8 +27,8 @@ class View{
 		bindButtonPressed (handler){
 			this.onKeyPressed = handler;
 		}
-		bindDisPressed (handler){
-			this.onKeyDisPressed = handler;
+		bindDisplayList (handler){
+			this.displayList = handler;
 		}
 		bindRemovePressed (handler){
 			this.onKeyRemovePressed = handler;

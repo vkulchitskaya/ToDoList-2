@@ -7,7 +7,7 @@ var
 gulp.task('build', ['babel-js', 'copy-html']);
 
 
-gulp.task('babel-js', () => {
+gulp.task('babel-js', function() {
     return gulp.src('src/js/*.js')
         .pipe(concat('script.js'))
         .pipe(babel({
@@ -18,7 +18,7 @@ gulp.task('babel-js', () => {
 
 
 gulp.task('copy-html', function() {
-  return gulp.src('src/html/*.html')
-  .pipe(gulp.dest('dist'));
+   gulp.src('src/html/*.html')
+  		.pipe(gulp.dest('dist'));
 });
 

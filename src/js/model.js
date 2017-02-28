@@ -1,11 +1,11 @@
-class Task {
+export class Task {
   constructor(name,id) {
     this.name = name;
     this.id=id;
   } 
 }
 
-class TaskCollection{
+export class TaskCollection{
 
 	constructor() {
 		this.taskCollection = [];

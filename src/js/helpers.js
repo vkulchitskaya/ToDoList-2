@@ -1,9 +1,9 @@
-function qs(id)
+export function qs(id)
 		{
 			return document.getElementById(id);
 		}
 
-function qt(tag)
+export function qt(tag)
 		{
 			return document.getElementsByTagName(tag);
 		}	

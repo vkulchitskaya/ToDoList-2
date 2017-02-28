@@ -8,7 +8,7 @@ var babel = require('babelify');
 
 function compile(watch) {
   var bundler = watchify(browserify('./src/js/application.js', { debug: true }).transform(babel, { "presets": ["es2015"]} ));
-
+  
   function rebundle() {
     bundler.bundle()
       .on('error', function(err) { console.error(err); this.emit('end'); })
@@ -19,13 +19,21 @@ function compile(watch) {
       .pipe(gulp.dest('./build'));
   }
 
+  function copyhtml() {
+    gulp.src('src/index.html')
+  		.pipe(gulp.dest('build'));
+  }
+
   if (watch) {
     bundler.on('update', function() {
-      console.log('-> bundling...');
+      console.log('-> bundling...');      
+      copyhtml();
       rebundle();
     });
   }
 
+  // вот этот кусочек надо будет переделать
+  copyhtml();
   rebundle();
 }
 

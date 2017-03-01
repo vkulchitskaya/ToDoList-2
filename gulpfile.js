@@ -5,7 +5,6 @@ var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
-var eslint = require('gulp-eslint');
 
 function compile(watch) {
   var bundler = watchify(browserify('./src/js/application.js', { debug: true }).transform(babel, { "presets": ["es2015"]} ));
@@ -41,20 +40,6 @@ function compile(watch) {
 function watch() {
   return compile(true);
 };
-
-
-
-gulp.task('lint', function() {
-  return gulp.src('./src/js/**').pipe(eslint({
-    'rules':{
-        'quotes': [1, 'single'],
-        'semi': [1, 'always']
-    }
-  }))
-  .pipe(eslint.format())
-  .pipe(eslint.failOnError());
-});
-
 
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });

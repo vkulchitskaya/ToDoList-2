@@ -1,3 +1,5 @@
+import {Storage} from './storage';
+
 export class Task {
   constructor(name,id) {
     this.name = name;
@@ -10,43 +12,21 @@ export class TaskCollection{
 	constructor() {
 		this.taskCollection = [];
 		this.index =1000;
-		self=this;
-		var existCollection = localStorage.getItem("collection");
-		var existIndex = localStorage.getItem("collection-index");
-		if (existCollection!=null || existCollection!=undefined){
-			var reCollection = JSON.parse(existCollection);
-			var reIndex = JSON.parse(existIndex);
-			reCollection.forEach( function(item){
-				var oldTask = new Task(item.name,item.id);	
-		 		self.taskCollection.push(oldTask);
-		 		self.index =reIndex;
-			} );
-		}
-	
+		this.storage = new Storage();
+		this.storage.loadCollection(this);
 	}
+
 	addTask(task){
-		this.taskCollection.push(task);
-
-	}
-
-	removeTask(task) {
-		this.removeTaskByName(task.name);
-	}
-	removeTaskById(id) {	
-		this.taskCollection = this.taskCollection.filter(function(v){return	v.id !=id});
-	}
-	getTasks() {
-		return this.taskCollection;
-	}
-
-	rewrite(){
-		var commitTaskCollection = JSON.stringify(this.taskCollection);
-		var commitIndexCollection = JSON.stringify(this.index);
-		localStorage.setItem('collection', commitTaskCollection);
-		localStorage.setItem('collection-index', commitIndexCollection);
-	}
-	incIndex(){
 		this.index++;
+		task.id =this.index;
+		this.taskCollection.push(task);
+		this.storage.rewriteCollection(this);
+
+	}
+
+	removeTask(id) {	
+		this.taskCollection = this.taskCollection.filter(function(v){return	v.id !=id});
+		this.storage.rewriteCollection(this);
 	}
 
 	editTask(id,newName){
@@ -55,5 +35,10 @@ export class TaskCollection{
 				item.name=newName;
 			}
 		});
+		this.storage.rewriteCollection(this);
+	}
+
+	_getTasks() {
+		return this.taskCollection;
 	}
 }

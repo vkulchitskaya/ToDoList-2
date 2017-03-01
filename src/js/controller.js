@@ -11,21 +11,21 @@ export class Controller{
 	}
 	
 	onKeyPressed(){
-		var name = this.view.getValue();
+		var name = this.view._getValue();
 		var task = new Task (name,0);
 		this.taskCollection.addTask(task);
-		this.view.display(this.taskCollection);
+		this.view._display(this.taskCollection);
 
 	}
 	
 	onKeyRemovePressed(id){
 		this.taskCollection.removeTask(id);		
-		this.view.display(this.taskCollection);
+		this.view._display(this.taskCollection);
 	}
 
 	editPressed(name,id){
 		this.taskCollection.editTask(id,name);
-		this.view.display(this.taskCollection);
+		this.view._display(this.taskCollection);
 	}
 
 }

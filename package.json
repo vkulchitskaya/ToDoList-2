@@ -23,10 +23,7 @@
     "babel-preset-es2015": "^6.22.0",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
-<<<<<<< HEAD
     "eslint": "^3.16.1",
-=======
->>>>>>> 4f791edda198566c6322a48f8b5b5946a627c0e5
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",

@@ -29,7 +29,7 @@ export class View{
 		bindRemovePressed (handler){
 			this.onKeyRemovePressed = handler;
 		}
-		getValue(){
+		_getValue(){
 			return this.idField.value;
 		}
 
@@ -51,7 +51,7 @@ export class View{
 
 			}	
 
-		display(taskCollection){
+		_display(taskCollection){
 			var elem = this.idUl;
 			while (elem.firstChild) {
     			elem.removeChild(elem.firstChild);

@@ -14,8 +14,6 @@ export class View{
 		this.idButtonClear.onclick= function (){
 			localStorage.clear();
 			location.reload();
-
-
 		}
 	
 		}
@@ -27,9 +25,7 @@ export class View{
 		bindButtonPressed (handler){
 			this.onKeyPressed = handler;
 		}
-		bindDisplayList (handler){
-			this.displayList = handler;
-		}
+
 		bindRemovePressed (handler){
 			this.onKeyRemovePressed = handler;
 		}
@@ -37,7 +33,7 @@ export class View{
 			return this.idField.value;
 		}
 
-		addEdit(tmpText,id){
+		_addEdit(tmpText,id){
 			var elem = this.idUl;
 			var newLi = document.createElement('li');
 			var edit = document.createElement("input");
@@ -48,8 +44,6 @@ export class View{
 			elem.lastChild.firstChild.focus();
 
 			edit.onblur = function(){
-				/*передаю данные в модель Newname и eё id*/ 
-				console.log(this.value, id);
 				self.editPressed(this.value,id);		
 
 			}
@@ -62,7 +56,7 @@ export class View{
 			while (elem.firstChild) {
     			elem.removeChild(elem.firstChild);
 			}
-	    	var tasks = taskCollection.getTasks();
+	    	var tasks = taskCollection._getTasks();
 
 	    	self = this
  	    	tasks.forEach(function (item) {
@@ -73,7 +67,7 @@ export class View{
    				newLi.ondblclick = function(){
    					var tmpId = this.getAttribute('data-id');
    					var tmpText = this.firstChild.data;
-   					self.addEdit(tmpText,tmpId);
+   					self._addEdit(tmpText,tmpId);
    					this.remove(); 
 
    				}	

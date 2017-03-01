@@ -9,8 +9,7 @@ class Application{
 		this.taskCollection = new TaskCollection();
 		this.view = new View('taskTittle','addButton','listTask','clearButton');
 		this.controller = new Controller(this.view,this.taskCollection);
-		this.view.displayList();
-
+		this.view.display(this.taskCollection);
 	}
 
 }

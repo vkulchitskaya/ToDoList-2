@@ -8,9 +8,11 @@ export class View{
 		this.idUl= qs(idUl);
 		this.idButtonClear=qs(idButtonClear);
 		self=this;
+
 		this.idButton.onclick = function (){			
-			self.onKeyPressed();
+			self.onKeyPressed(self._getValue());
 		}
+
 		this.idButtonClear.onclick= function (){
 			localStorage.clear();
 			location.reload();

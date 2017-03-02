@@ -7,7 +7,7 @@ export class View{
 		this.idButton=qs(idButton);
 		this.idUl= qs(idUl);
 		this.idButtonClear=qs(idButtonClear);
-		self=this;
+		self=this; /*надо избавиться*/
 
 		this.idButton.onclick = () => {			
 			this.onKeyPressed(this._getValue(), this._display.bind(this));

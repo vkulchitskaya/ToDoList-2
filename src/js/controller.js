@@ -10,12 +10,10 @@ export class Controller{
 
 	}
 	
-	onKeyPressed(){
-		var name = this.view._getValue();
+	onKeyPressed(name, callback){		
 		var task = new Task (name,0);
 		this.taskCollection.addTask(task);
-		this.view._display(this.taskCollection);
-
+		callback(this.taskCollection);
 	}
 	
 	onKeyRemovePressed(id){

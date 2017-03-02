@@ -7,10 +7,12 @@ export class View{
 		this.idButton=qs(idButton);
 		this.idUl= qs(idUl);
 		this.idButtonClear=qs(idButtonClear);
-		self=this;
-		this.idButton.onclick = function (){			
-			self.onKeyPressed();
+		//self=this;
+
+		this.idButton.onclick = () => {			
+			this.onKeyPressed(this._getValue(), this._display.bind(this));
 		}
+
 		this.idButtonClear.onclick= function (){
 			localStorage.clear();
 			location.reload();

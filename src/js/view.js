@@ -8,9 +8,12 @@ export class View{
 		this.idUl= qs(idUl);
 		this.idButtonClear=qs(idButtonClear);
 		self=this;
-		this.idButton.onclick = function (){			
-			self.onKeyPressed();
+
+		this.idButton.onclick = () => {			
+			this.onKeyPressed(this._getValue(), this._display.bind(this));
+			
 		}
+
 		this.idButtonClear.onclick= function (){
 			localStorage.clear();
 			location.reload();
@@ -34,17 +37,16 @@ export class View{
 		}
 
 		_addEdit(tmpText,id){
-			var elem = this.idUl;
+			var elem = self.idUl;
 			var newLi = document.createElement('li');
 			var edit = document.createElement("input");
-			edit.setAttribute('value', tmpText);
+			console.log(tmpText);
+			edit.setAttribute('value',tmpText); // не передается  tmpText
 			newLi.appendChild(edit);
 			elem.appendChild(newLi);
-			console.log(elem.lastChild.firstChild);
 			elem.lastChild.firstChild.focus();
-
-			edit.onblur = function(){
-				self.editPressed(this.value,id);		
+			edit.onblur =() => {
+				self.editPressed(edit.value,id,this._display.bind(this));
 
 			}
 
@@ -52,23 +54,22 @@ export class View{
 			}	
 
 		_display(taskCollection){
-			var elem = this.idUl;
+			var elem = self.idUl;
 			while (elem.firstChild) {
     			elem.removeChild(elem.firstChild);
 			}
 	    	var tasks = taskCollection._getTasks();
 
-	    	self = this
  	    	tasks.forEach(function (item) {
 				var newLi = document.createElement('li');
 				newLi.setAttribute('data-id', item.id);
-				console.log(newLi);
    				newLi.innerHTML =item.name;
+
    				newLi.ondblclick = function(){
-   					var tmpId = this.getAttribute('data-id');
-   					var tmpText = this.firstChild.data;
-   					self._addEdit(tmpText,tmpId);
-   					this.remove(); 
+   					var tmpId = this.getAttribute('data-id') ; // this указывает на newLi 
+   					var tmpText = this.firstChild.data; // this указывает на newLi 
+   					self._addEdit(tmpText,tmpId); // вызываем метод view, this должно показывать на view
+   					this.remove(); // this указывает на newLi 
 
    				}	
 
@@ -76,12 +77,12 @@ export class View{
    				var txt = document.createTextNode("\u00D7");
    				newSpan.appendChild(txt);
    				newLi.appendChild(newSpan);		
-   				self.idUl.appendChild(newLi);   				
+   				self.idUl.appendChild(newLi);  //this указывает на view				
 
    				newSpan.onclick	=  function	(){
   							var idTask = newLi.getAttribute('data-id');
   							alert('Удаляем задачу под номером...'+idTask);
-  							self.onKeyRemovePressed(idTask);
+  							self.onKeyRemovePressed(idTask);//this указывает на view
   						}
   							
 		});

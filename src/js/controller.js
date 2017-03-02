@@ -10,11 +10,10 @@ export class Controller{
 
 	}
 	
-	onKeyPressed(name){		
+	onKeyPressed(name, callback){		
 		var task = new Task (name,0);
 		this.taskCollection.addTask(task);
-		this.view._display(this.taskCollection);
-
+		callback(this.taskCollection);
 	}
 	
 	onKeyRemovePressed(id){

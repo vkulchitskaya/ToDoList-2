@@ -10,7 +10,7 @@ export class View{
 		self=this;
 
 		this.idButton.onclick = function (){			
-			self.onKeyPressed(self._getValue());
+			self.onKeyPressed(self._getValue(), self._display.bind(self));
 		}
 
 		this.idButtonClear.onclick= function (){

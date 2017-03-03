@@ -66,10 +66,9 @@ export class View{
    				newLi.innerHTML =item.name;
 
    				newLi.ondblclick = function(){
-   					var tmpId = this.getAttribute('data-id') ; // this указывает на newLi 
-   					var tmpText = this.firstChild.data; // this указывает на newLi 
-   					self._addEdit(tmpText,tmpId); // вызываем метод view, this должно показывать на view
-   					this.remove(); // this указывает на newLi 
+   					var tmpId = this.getAttribute('data-id') ;
+   					var tmpText = this.firstChild.data; 
+   					self._addEdit(tmpText,tmpId); 
 
    				}	
 
@@ -77,12 +76,12 @@ export class View{
    				var txt = document.createTextNode("\u00D7");
    				newSpan.appendChild(txt);
    				newLi.appendChild(newSpan);		
-   				self.idUl.appendChild(newLi);  //this указывает на view				
+   				self.idUl.appendChild(newLi);  		
 
    				newSpan.onclick	=  function	(){
   							var idTask = newLi.getAttribute('data-id');
   							alert('Удаляем задачу под номером...'+idTask);
-  							self.onKeyRemovePressed(idTask);//this указывает на view
+  							self.onKeyRemovePressed(idTask,self._display.bind(this));
   						}
   							
 		});

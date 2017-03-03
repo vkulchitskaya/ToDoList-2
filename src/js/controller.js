@@ -16,8 +16,9 @@ export class Controller{
 		callback(this.taskCollection);
 	}
 	
-	onKeyRemovePressed(id){
-		this.taskCollection.removeTask(id);		
+	onKeyRemovePressed(id, callback){
+		this.taskCollection.removeTask(id);
+		callback(this.taskCollection);		
 	}
 
 	editPressed(name,id, callback){

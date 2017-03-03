@@ -9,7 +9,7 @@ class Application{
 		this.taskCollection = new TaskCollection();
 		this.view = new View('taskTittle','addButton','listTask','clearButton');
 		this.controller = new Controller(this.view,this.taskCollection);
-		this.view._display(this.taskCollection);
+		this.view._display(this.taskCollection); // убрать обращение к приватному методу
 	}
 
 }

@@ -4,24 +4,24 @@ export class Controller{
 	constructor(view,taskCollection){
 		this.view = view;
 		this.taskCollection = taskCollection;
-		this.view.bindButtonPressed(this.onKeyPressed.bind(this));
-		this.view.bindRemovePressed(this.onKeyRemovePressed.bind(this));
-		this.view.bindEditPressed(this.editPressed.bind(this));
+		this.view.bindTaskCreated(this.onTaskCreated.bind(this));
+		this.view.bindTaskRemove(this.onTaskRemove.bind(this));
+		this.view.bindTaskEdit(this.onTaskEdit.bind(this));
 
 	}
 	
-	onKeyPressed(name, callback){		
+	onTaskCreated(name, callback){		
 		var task = new Task (name,0);
 		this.taskCollection.addTask(task);
 		callback(this.taskCollection);
 	}
-	
-	onKeyRemovePressed(id, callback){
+
+	onTaskRemove(id, callback){
 		this.taskCollection.removeTask(id);
 		callback(this.taskCollection);		
 	}
 
-	editPressed(name,id, callback){
+	onTaskEdit(name,id, callback){
 		this.taskCollection.editTask(id,name);
 		callback(this.taskCollection);
 	}

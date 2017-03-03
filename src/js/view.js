@@ -10,7 +10,7 @@ export class View{
 		self=this; /*надо избавиться*/
 
 		this.idButton.onclick = () => {			
-			this.onKeyPressed(this._getValue(), this._display.bind(this));
+			this.onTaskCreated(this._getValue(), this._display.bind(this));
 			
 		}
 
@@ -21,17 +21,18 @@ export class View{
 	
 		}
 
-		bindEditPressed (handler){
-			this.editPressed = handler;
+		bindTaskCreated (handler){
+			this.onTaskCreated = handler;
 		}
 
-		bindButtonPressed (handler){
-			this.onKeyPressed = handler;
+		bindTaskRemove (handler){
+			this.onTaskRemove = handler;
 		}
 
-		bindRemovePressed (handler){
-			this.onKeyRemovePressed = handler;
+		bindTaskEdit (handler){
+			this.onTaskEdit = handler;
 		}
+
 		_getValue(){
 			return this.idField.value;
 		}
@@ -41,15 +42,14 @@ export class View{
 			var newLi = document.createElement('li');
 			var edit = document.createElement("input");
 			console.log(tmpText);
-			edit.setAttribute('value',tmpText); // не передается  tmpText
+			edit.setAttribute('value',tmpText);
 			newLi.appendChild(edit);
 			elem.appendChild(newLi);
 			elem.lastChild.firstChild.focus();
 			edit.onblur =() => {
-				self.editPressed(edit.value,id,this._display.bind(this));
+				self.onTaskEdit(edit.value,id,this._display.bind(this)); 
 
 			}
-
 
 			}	
 
@@ -81,7 +81,7 @@ export class View{
    				newSpan.onclick	=  function	(){
   							var idTask = newLi.getAttribute('data-id');
   							alert('Удаляем задачу под номером...'+idTask);
-  							self.onKeyRemovePressed(idTask,self._display.bind(this));
+  							self.onTaskRemove(idTask,self._display.bind(this));
   						}
   							
 		});

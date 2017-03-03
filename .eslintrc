@@ -1,8 +1,22 @@
 {
+  "parserOptions": {
+        "ecmaVersion": 6
+   },
   "extends": "yandex",
   "env": {
     "browser": true
   },
   "rules": {
+  
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "double"],
+        "semi": ["error", "always"],
+
+      
+        "comma-dangle": ["error", "always"],
+        "no-cond-assign": ["error", "always"],
+
+        "no-console": "off",
   }
 }

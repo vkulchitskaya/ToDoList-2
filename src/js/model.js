@@ -11,15 +11,26 @@ export class TaskCollection{
 
 	constructor() {
 		this.taskCollection = [];
-		this.index =1000;
 		this.storage = new Storage();
 		this.storage.loadCollection(this);
 	}
 
 	addTask(task){
-		this.index++;
-		task.id =this.index;
+		var maxIdTask = 0;
+		if (this.taskCollection !=[]){
+			this.taskCollection.forEach(function(item){
+				if (item.id>maxIdTask) {
+					maxIdTask=item.id;
+				} });
+			maxIdTask++;
+			task.id = maxIdTask;
+		}
+		else{
+			task.id =1;
+		}
 		this.taskCollection.push(task);
+		console.log(task);
+		console.log(this.taskCollection);
 		this.storage.rewriteCollection(this);
 
 	}

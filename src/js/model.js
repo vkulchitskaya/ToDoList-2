@@ -10,28 +10,32 @@ export class Task {
 export class TaskCollection{
 
 	constructor() {
+		self = this;
 		this.taskCollection = [];
 		this.storage = new Storage();
 		this.storage.loadCollection(this);
+		var check1 = Number(localStorage.getItem('flag-collection'));
+		var checkStorage = setInterval(function(){
+			var check2 = Number(localStorage.getItem('flag-collection'));
+			if (check1!=check2) {
+				console.log('загрузка модели из хранилища');
+				//self.storage.loadCollection(self);
+				console.log('check1 ', check1);
+				console.log('check2 ', check2);
+				console.log('синхронизация флагов check1=check2;');
+			}
+
+
+		}, 3000)
 	}
 
-	addTask(task){
-		var maxIdTask = 0;
-		if (this.taskCollection !=[]){
-			this.taskCollection.forEach(function(item){
-				if (item.id>maxIdTask) {
-					maxIdTask=item.id;
-				} });
-			maxIdTask++;
-			task.id = maxIdTask;
-		}
-		else{
-			task.id =1;
-		}
+	addTask(task,flag){
+		//нужна синхронизация с localStorage перед добавлением. Надо брать индекс оттуда
+		task.id =this.storage.getId();
 		this.taskCollection.push(task);
-		console.log(task);
-		console.log(this.taskCollection);
+		if(flag){
 		this.storage.rewriteCollection(this);
+		}
 
 	}
 

@@ -12,7 +12,7 @@ export class Controller{
 	
 	onTaskCreated(name, callback){		
 		var task = new Task (name,0);
-		this.taskCollection.addTask(task);
+		this.taskCollection.addTask(task,true);
 		callback(this.taskCollection);
 	}
 

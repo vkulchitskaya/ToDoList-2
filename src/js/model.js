@@ -13,13 +13,13 @@ export class TaskCollection{
 		self = this;
 		this.taskCollection = [];
 		this.storage = new Storage();
-		this.storage.loadCollection(this);
-		var check1 = Number(localStorage.getItem('flag-collection'));
+		//this.storage.loadCollection(this);
+		var check1; /*= Number(localStorage.getItem('flag-collection'));*/
 		var checkStorage = setInterval(function(){
 			var check2 = Number(localStorage.getItem('flag-collection'));
 			if (check1!=check2) {
 				console.log('загрузка модели из хранилища');
-				//self.storage.loadCollection(self);
+				self.storage.loadCollection(self.taskCollection,check1);
 				console.log('check1 ', check1);
 				console.log('check2 ', check2);
 				console.log('синхронизация флагов check1=check2;');

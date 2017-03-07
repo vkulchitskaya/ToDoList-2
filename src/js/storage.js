@@ -25,7 +25,6 @@ export class Storage{
 			index = reflagCollection;
 
 			var reCollection = JSON.parse(existCollection);
-			taskCollection.storage.currentFlag =reflagCollection; 
 			reCollection.forEach( function(item){
 				var task = new Task(item.name,item.id); //чтобы не было object-ов
 		 		taskCollection.addTask(task,false); //ПРИ ЗАГРУЗКЕ КОЛЛЕКЦИИ НА СТРАНИЦУ ИНДЕКС НЕ ИЗМЕНЯЕМ		

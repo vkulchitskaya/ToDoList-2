@@ -1,6 +1,8 @@
 {
   "parserOptions": {
+        "sourceType": "module",
         "ecmaVersion": 6
+        
    },
   "extends": "yandex",
   "env": {
@@ -9,14 +11,14 @@
   "rules": {
   
         "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "double"],
-        "semi": ["error", "always"],
-
-      
+        "linebreak-style": ["error", "windows"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],   
         "comma-dangle": ["error", "always"],
         "no-cond-assign": ["error", "always"],
-
         "no-console": "off",
   }
+
+
+  
 }

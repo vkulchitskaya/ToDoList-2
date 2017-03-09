@@ -1,67 +1,77 @@
 
-import {Task} from './model'
+import {Task,} from './model';
 
-export class Storage{
+export class Storage {
+    constructor() {
+        this.version;
+    }
+    rewriteCollection(taskCollection,operation,task) {
+        var commitTaskCollection = JSON.stringify(taskCollection.taskCollection);
+        localStorage.setItem('collection', commitTaskCollection);
+    }
 
-	rewriteCollection(taskCollection){
-		
-		/*КОЛЛЕКЦИЯ*/
-		var commitTaskCollection = JSON.stringify(taskCollection.taskCollection); //на каждой странице у меня свой taskCollection от этого и затирает
-		localStorage.setItem('collection', commitTaskCollection);
-		
-		/*ИНДЕКС*/
-		var flagCollection = localStorage.getItem('flag-collection');
-		flagCollection++; // ПРИ ВНЕСЕНИИ КАКИХ-ЛИБО ИЗМЕНЕНИЙ УВЕЛИЧИВАЕМ ИНДЕКС	
-		localStorage.setItem('flag-collection', flagCollection); 
-	}
+    loadCollection(taskCollection,versionLocal) {
 
-	loadCollection(taskCollection,index){
+        var existCollection = localStorage.getItem('collection');
+        var version = localStorage.getItem('version-global');
+        var reCollection = JSON.parse(existCollection);
+        if (existCollection!=null && existCollection!=undefined && reCollection!=undefined) {
+            if (reCollection.length!=0 && reCollection.length!=undefined){
+            reCollection.forEach(function (item) {
+                var task = new Task(item.name,item.id); // чтобы не было object-ов
+                taskCollection.addTask(task,false);
+            });
+            }
+        }
+        else{
+            var commitTaskCollection = JSON.stringify(taskCollection);
+            localStorage.setItem('collection', commitTaskCollection);
+            localStorage.setItem('version-global', 0);
+        }
+    }
+ // Id выдает последнее, но задачи перезатирает в двух сессиях
+    getId() {
+        var existCollection = localStorage.getItem('collection');
+        var reCollection = JSON.parse(existCollection);
+        var maxId = 0;
+        if (existCollection!=null && reCollection!=undefined) {
+            reCollection = JSON.parse(existCollection);
+            if (reCollection.length!=0 && reCollection.length!=undefined){ 
+            reCollection.forEach(function (item) {
+                if (item.id>maxId) {
+                    maxId=item.id;
+                }
+            });
+            }
+        }
+        
+        maxId++;
+        return maxId;
+    }
 
-		var existCollection = localStorage.getItem('collection');
-
-		if (existCollection!=null || existCollection!=undefined){
-			var flagCollection = localStorage.getItem('flag-collection');
-			var reflagCollection = JSON.parse(flagCollection);
-			index = reflagCollection;
-
-			var reCollection = JSON.parse(existCollection);
-			reCollection.forEach( function(item){
-				var task = new Task(item.name,item.id); //чтобы не было object-ов
-		 		taskCollection.addTask(task,false); //ПРИ ЗАГРУЗКЕ КОЛЛЕКЦИИ НА СТРАНИЦУ ИНДЕКС НЕ ИЗМЕНЯЕМ		
-			} );
-		}
-
-		else {
-			localStorage.setItem('flag-collection', 0);
-		}
-	}
- //Id выдает последнее, но задачи перезатирает в двух сессиях
-	getId(){
-		var existCollection = localStorage.getItem("collection");
-		var maxId = 0;
-		if (existCollection!=null || existCollection!=undefined){
-			var reCollection = JSON.parse(existCollection);
-			reCollection.forEach(function(item){
-				if (item.id>maxId) {
-					maxId=item.id;
-				} 
-			});
-			
-		}
-		maxId++
-		return maxId;
-	}
+    removeTaskStorage(id) {
+        var existCollection = localStorage.getItem('collection');
+        var reCollection = JSON.parse(existCollection);
+        reCollection = reCollection.filter(function (v) {
+            return v.id !=id;
+        });
+        localStorage.setItem('collection', reCollection);
 
 
+    }
+
+    addTaskStorage(task) {
+        var existCollection = localStorage.getItem('collection');
+        var reCollection = JSON.parse(existCollection);
+        if (existCollection!=null || existCollection!=undefined) {
+            reCollection = JSON.parse(existCollection);
+        }
+        console.log(reCollection);
+        reCollection.push(task);
+        localStorage.setItem('collection', reCollection);
+
+    }
 
 
+}
 
-}		
-
-/*кроме самой коллекции храним еще один объект - номер
-
-1) вкладка стартуерт и вместе с коллекцией читает этот номер - пусть 1
-2) раз в секунду она перечитывает этот номер
-3) если он все еще 1 - значит все ок
-4) если оно стало больше 1   - значит другая вкладка уже переписала коллекцию и нам надо ее перечитать
-*/

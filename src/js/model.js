@@ -1,59 +1,53 @@
-import {Storage} from './storage';
+import {Storage,} from "./storage";
+
 
 export class Task {
-  constructor(name,id) {
-    this.name = name;
-    this.id=id;
-  } 
+    constructor(name,id) {
+        this.name = name;
+        this.id=id;
+    }
 }
 
-export class TaskCollection{
+export class TaskCollection {
 
-	constructor() {
-		self = this;
-		this.taskCollection = [];
-		this.storage = new Storage();
-		//this.storage.loadCollection(this);
-		var check1; /*= Number(localStorage.getItem('flag-collection'));*/
-		var checkStorage = setInterval(function(){
-			var check2 = Number(localStorage.getItem('flag-collection'));
-			if (check1!=check2) {
-				console.log('загрузка модели из хранилища');
-				self.storage.loadCollection(self.taskCollection,check1);
-				console.log('check1 ', check1);
-				console.log('check2 ', check2);
-				console.log('синхронизация флагов check1=check2;');
-			}
+    constructor() {
+        this.storage = new Storage();
+        this.storage.version = 0;
+        this.taskCollection = [];
+        this.storage.loadCollection(this);
+    }
 
+    addTask(task,flag) {
+		// нужна синхронизация с localStorage перед добавлением. Надо брать индекс оттуда
+        if (flag) {
+            task.id =this.storage.getId();
+            this.storage.version++;
+        }
+        this.taskCollection.push(task);
+		// this.storage.addTaskStorage(task);
+        this.storage.rewriteCollection(this);
+        
 
-		}, 3000)
-	}
+    }
 
-	addTask(task,flag){
-		//нужна синхронизация с localStorage перед добавлением. Надо брать индекс оттуда
-		task.id =this.storage.getId();
-		this.taskCollection.push(task);
-		if(flag){
-		this.storage.rewriteCollection(this);
-		}
+    removeTask(id) {
+        this.taskCollection = this.taskCollection.filter(function (v) {
+            return	v.id !==id;
+        });
+		// this.storage.removeTaskStorage(id);
+        this.storage.rewriteCollection(this);
+    }
 
-	}
+    editTask(id,newName) {
+        this.taskCollection.forEach(function (item) {
+            if (item.id===id) {
+                item.name=newName;
+            }
+        });
+        this.storage.rewriteCollection(this);
+    }
 
-	removeTask(id) {	
-		this.taskCollection = this.taskCollection.filter(function(v){return	v.id !=id});
-		this.storage.rewriteCollection(this);
-	}
-
-	editTask(id,newName){
-		this.taskCollection.forEach(function(item){
-			if (item.id==id) {
-				item.name=newName;
-			}
-		});
-		this.storage.rewriteCollection(this);
-	}
-
-	_getTasks() {
-		return this.taskCollection;
-	}
+    _getTasks() {
+        return this.taskCollection;
+    }
 }

@@ -1,92 +1,92 @@
-import {qs,qt} from './helpers';
+import {qs,qt,} from "./helpers";
 
-export class View{
-	
-	constructor(idField,idButton,idUl,idButtonClear){
-		this.idField=qs(idField);
-		this.idButton=qs(idButton);
-		this.idUl= qs(idUl);
-		this.idButtonClear=qs(idButtonClear);
-		self=this; /*надо избавиться*/
+export class View {
 
-		this.idButton.onclick = () => {			
-			this.onTaskCreated(this._getValue(), this._display.bind(this));
-			
-		}
+    constructor(idField,idButton,idUl,idButtonClear) {
+        this.idField=qs(idField);
+        this.idButton=qs(idButton);
+        this.idUl= qs(idUl);
+        this.idButtonClear=qs(idButtonClear);
+        self=this; /* надо избавиться*/
 
-		this.idButtonClear.onclick= function (){
-			localStorage.clear();
-			location.reload();
-		}
-	
-		}
+        this.idButton.onclick = () => {
+            this.onTaskCreated(this._getValue(), this._display.bind(this));
 
-		bindTaskCreated (handler){
-			this.onTaskCreated = handler;
-		}
+        };
 
-		bindTaskRemove (handler){
-			this.onTaskRemove = handler;
-		}
+        this.idButtonClear.onclick= function () {
+            localStorage.clear();
+            location.reload();
+        };
 
-		bindTaskEdit (handler){
-			this.onTaskEdit = handler;
-		}
+    }
 
-		_getValue(){
-			return this.idField.value;
-		}
+    bindTaskCreated(handler) {
+        this.onTaskCreated = handler;
+    }
 
-		_addEdit(tmpText,id){
-			var elem = self.idUl;
-			var newLi = document.createElement('li');
-			var edit = document.createElement("input");
-			console.log(tmpText);
-			edit.setAttribute('value',tmpText);
-			newLi.appendChild(edit);
-			elem.appendChild(newLi);
-			elem.lastChild.firstChild.focus();
-			edit.onblur =() => {
-				self.onTaskEdit(edit.value,id,this._display.bind(this)); 
+    bindTaskRemove(handler) {
+        this.onTaskRemove = handler;
+    }
 
-			}
+    bindTaskEdit(handler) {
+        this.onTaskEdit = handler;
+    }
 
-			}	
+    _getValue() {
+        return this.idField.value;
+    }
 
-		_display(taskCollection){
-			var elem = self.idUl;
-			while (elem.firstChild) {
-    			elem.removeChild(elem.firstChild);
-			}
-	    	var tasks = taskCollection._getTasks();
+    _addEdit(tmpText,id) {
+        var elem = self.idUl;
+        var newLi = document.createElement("li");
+        var edit = document.createElement("input");
+        console.log(tmpText);
+        edit.setAttribute("value",tmpText);
+        newLi.appendChild(edit);
+        elem.appendChild(newLi);
+        elem.lastChild.firstChild.focus();
+        edit.onblur =() => {
+            self.onTaskEdit(edit.value,id,this._display.bind(this));
 
- 	    	tasks.forEach(function (item) {
-				var newLi = document.createElement('li');
-				newLi.setAttribute('data-id', item.id);
-   				newLi.innerHTML =item.name;
+        };
 
-   				newLi.ondblclick = function(){
-   					var tmpId = this.getAttribute('data-id') ;
-   					var tmpText = this.firstChild.data; 
-   					self._addEdit(tmpText,tmpId); 
+    }
 
-   				}	
+    _display(taskCollection) {
+        var elem = self.idUl;
+        while (elem.firstChild) {
+            elem.removeChild(elem.firstChild);
+        }
+        var tasks = taskCollection._getTasks();
 
-   				var newSpan = document.createElement("span");
-   				var txt = document.createTextNode("\u00D7");
-   				newSpan.appendChild(txt);
-   				newLi.appendChild(newSpan);		
-   				self.idUl.appendChild(newLi);  		
+        tasks.forEach(function (item) {
+            var newLi = document.createElement("li");
+            newLi.setAttribute("data-id", item.id);
+            newLi.innerHTML =item.name;
 
-   				newSpan.onclick	=  function	(){
-  							var idTask = newLi.getAttribute('data-id');
-  							alert('Удаляем задачу под номером...'+idTask);
-  							self.onTaskRemove(idTask,self._display.bind(this));
-  						}
-  							
-		});
+            newLi.ondblclick = function () {
+                var tmpId = this.getAttribute("data-id");
+                var tmpText = this.firstChild.data;
+                self._addEdit(tmpText,tmpId);
 
-		}
+            };
 
- 	    }	
-    	  
+            var newSpan = document.createElement("span");
+            var txt = document.createTextNode("\u00D7");
+            newSpan.appendChild(txt);
+            newLi.appendChild(newSpan);
+            self.idUl.appendChild(newLi);
+
+            newSpan.onclick	= function	() {
+                var idTask = newLi.getAttribute("data-id");
+                alert("Удаляем задачу под номером..."+idTask);
+                self.onTaskRemove(idTask,self._display.bind(this));
+            };
+
+        });
+
+    }
+
+ }
+

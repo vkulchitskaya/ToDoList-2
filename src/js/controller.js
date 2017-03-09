@@ -1,30 +1,33 @@
-import {Task} from './model';
+import {Task,} from "./model";
+import {testLoad,} from "./helpers";
 
-export class Controller{
-	constructor(view,taskCollection){
-		this.view = view;
-		this.taskCollection = taskCollection;
-		this.view.bindTaskCreated(this.onTaskCreated.bind(this));
-		this.view.bindTaskRemove(this.onTaskRemove.bind(this));
-		this.view.bindTaskEdit(this.onTaskEdit.bind(this));
+export class Controller {
+    constructor(view,taskCollection) {
+        this.view = view;
+        this.taskCollection = taskCollection;
+        this.view.bindTaskCreated(this.onTaskCreated.bind(this));
+        this.view.bindTaskRemove(this.onTaskRemove.bind(this));
+        this.view.bindTaskEdit(this.onTaskEdit.bind(this));
+		// var checkStorage = setInterval(testLoad(this.taskCollection.taskCollection), 1000);
 
-	}
-	
-	onTaskCreated(name, callback){		
-		var task = new Task (name,0);
-		this.taskCollection.addTask(task,true);
-		callback(this.taskCollection);
-	}
 
-	onTaskRemove(id, callback){
-		this.taskCollection.removeTask(id);
-		callback(this.taskCollection);		
-	}
+    }
 
-	onTaskEdit(name,id, callback){
-		this.taskCollection.editTask(id,name);
-		callback(this.taskCollection);
-	}
+    onTaskCreated(name, callback) {
+        var task = new Task(name,0);
+        this.taskCollection.addTask(task,true);
+        callback(this.taskCollection);
+    }
+
+    onTaskRemove(id, callback) {
+        this.taskCollection.removeTask(id);
+        callback(this.taskCollection);
+    }
+
+    onTaskEdit(name,id, callback) {
+        this.taskCollection.editTask(id,name);
+        callback(this.taskCollection);
+    }
 
 }
 

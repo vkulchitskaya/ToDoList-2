@@ -1,5 +1,5 @@
 
-import {Task,} from './model';
+import {Task} from './model';
 
 class TaskOperation {
     constructor(name,idTask) {
@@ -67,10 +67,12 @@ export class Storage {
             }
         } else {
             var commitTaskCollection = JSON.stringify(taskCollection);
+            var taskOperationColl = [];
             localStorage.setItem('collection', commitTaskCollection);
             localStorage.setItem('version-global', 0);
             localStorage.setItem('operation-index', 0);
             localStorage.setItem('task-index', 0);
+            localStorage.setItem('task-operation',taskOperationColl);
         }
     }
 
@@ -83,7 +85,7 @@ export class Storage {
     }
 
 
-    removeTaskStorage(id) {
+   /* removeTaskStorage(id) {
         var existCollection = localStorage.getItem('collection');
         var reCollection = JSON.parse(existCollection);
         reCollection = reCollection.filter(function (v) {
@@ -104,5 +106,30 @@ export class Storage {
         reCollection.push(task);
         localStorage.setItem('collection', reCollection);
 
+    } */
+    addTaskToOperColl(name,idTask) { 
+        var rec = new TaskOperation(name,idTask);
+        var taskOperationColl = localStorage.getItem('task-operation');
+ 
+        if (this.version!=1){
+            console.log('до добавления очедной операции');
+            console.log(taskOperationColl);
+            /*ПРОБЛЕМЫ С ПАРСИНГОМ МАССИВА НАДО РЕШИТЬ*/
+            var reTaskOperationColl = JSON.parse(taskOperationColl);      
+        }
+        /* если добавляем операцию в первый раз, из-за проблем с парсингом */
+        else{
+            var reTaskOperationColl = [];
+            console.log('до первого очедной операции');
+            console.log(taskOperationColl);
+        }
+        reTaskOperationColl.push(rec);
+        console.log('после добавления операции');
+        console.log(reTaskOperationColl);
+        localStorage.setItem('task-operation',reTaskOperationColl);
+        taskOperationColl = localStorage.getItem('task-operation');
+        console.log(taskOperationColl);
     }
+
+
 }

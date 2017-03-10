@@ -1,4 +1,4 @@
-import {Storage} from "./storage";
+import {Storage,TaskOperation,TaskOperationColl} from "./storage";
 
 
 export class Task {
@@ -26,6 +26,7 @@ export class TaskCollection {
             this.storage.incVersionGlobal();
         }
         this.taskCollection.push(task);
+        this.storage.addTaskToOperColl('add',task.id);
         this.storage.rewriteCollection(this);
     }
 

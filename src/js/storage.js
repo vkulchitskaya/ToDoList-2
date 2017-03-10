@@ -1,6 +1,28 @@
 
 import {Task,} from './model';
 
+class TaskOperation {
+    constructor(name,idTask) {
+        var index = Number(localStorage.getItem('operation-index'));
+        index++;
+        localStorage.setItem('operation-index', index);
+        this.idOper = index;
+        this.name = name;
+        this.idTask = idTask;
+    }
+}
+
+class TaskOperationColl {
+    constructor() {
+        this.taskOperationColl = [];
+    }
+    addOper(taskOperation) {
+        this.taskOperationColl.push(taskOperation);
+    }
+
+}
+
+
 export class Storage {
     constructor() {
         this.version;
@@ -47,27 +69,19 @@ export class Storage {
             var commitTaskCollection = JSON.stringify(taskCollection);
             localStorage.setItem('collection', commitTaskCollection);
             localStorage.setItem('version-global', 0);
+            localStorage.setItem('operation-index', 0);
+            localStorage.setItem('task-index', 0);
         }
     }
- // Id выдает последнее, но задачи перезатирает в двух сессиях
-    getId() {
-        var existCollection = localStorage.getItem('collection');
-        var reCollection = JSON.parse(existCollection);
-        var maxId = 0;
-        if (existCollection!=null && reCollection!=undefined) {
-            reCollection = JSON.parse(existCollection);
-            if (reCollection.length!=0 && reCollection.length!=undefined) {
-                reCollection.forEach(function (item) {
-                    if (item.id>maxId) {
-                        maxId=item.id;
-                    }
-                });
-            }
-        }
 
-        maxId++;
-        return maxId;
+    getGlobalId() {
+        var taskId = localStorage.getItem('task-index');
+        taskId = Number(taskId);
+        taskId++;
+        localStorage.setItem('task-index', taskId);
+        return taskId;
     }
+
 
     removeTaskStorage(id) {
         var existCollection = localStorage.getItem('collection');
@@ -91,7 +105,4 @@ export class Storage {
         localStorage.setItem('collection', reCollection);
 
     }
-
-
 }
-

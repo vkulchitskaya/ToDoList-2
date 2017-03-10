@@ -1,4 +1,4 @@
-import {Storage,} from "./storage";
+import {Storage} from "./storage";
 
 
 export class Task {
@@ -19,24 +19,25 @@ export class TaskCollection {
     }
 
     addTask(task,flag) {
-		// нужна синхронизация с localStorage перед добавлением. Надо брать индекс оттуда
+		// если flag true, то генерируем новый ID
         if (flag) {
-            task.id =this.storage.getId();
+            task.id = this.storage.getGlobalId();
             this.storage.incVersionLocal();
             this.storage.incVersionGlobal();
         }
         this.taskCollection.push(task);
-		// this.storage.addTaskStorage(task);
         this.storage.rewriteCollection(this);
-        
-
     }
 
     removeTask(id) {
+        console.log('здесь от view передалось id');
+        console.log(id);
         this.taskCollection = this.taskCollection.filter(function (v) {
-            return	v.id !==id;
+            return	v.id !=id;
         });
-		// this.storage.removeTaskStorage(id);
+        console.log(this.taskCollection);
+        this.storage.incVersionLocal();
+        this.storage.incVersionGlobal();
         this.storage.rewriteCollection(this);
     }
 

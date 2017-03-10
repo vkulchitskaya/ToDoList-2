@@ -15,13 +15,15 @@ export class TaskCollection {
         this.storage.version = 0;
         this.taskCollection = [];
         this.storage.loadCollection(this);
+        this.storage.equalVersion();
     }
 
     addTask(task,flag) {
 		// нужна синхронизация с localStorage перед добавлением. Надо брать индекс оттуда
         if (flag) {
             task.id =this.storage.getId();
-            this.storage.version++;
+            this.storage.incVersionLocal();
+            this.storage.incVersionGlobal();
         }
         this.taskCollection.push(task);
 		// this.storage.addTaskStorage(task);

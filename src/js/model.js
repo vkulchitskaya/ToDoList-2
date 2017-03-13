@@ -24,9 +24,10 @@ export class TaskCollection {
             task.id = this.storage.getGlobalId();
             this.storage.incVersionLocal();
             this.storage.incVersionGlobal();
+            this.storage.addTaskToOperColl('add',task.id);
         }
         this.taskCollection.push(task);
-        this.storage.addTaskToOperColl('add',task.id);
+        
         this.storage.rewriteCollection(this);
     }
 
@@ -39,6 +40,7 @@ export class TaskCollection {
         console.log(this.taskCollection);
         this.storage.incVersionLocal();
         this.storage.incVersionGlobal();
+        this.storage.addTaskToOperColl('remove',Number(id));
         this.storage.rewriteCollection(this);
     }
 

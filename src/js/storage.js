@@ -1,5 +1,5 @@
 
-import {Task} from './model';
+import {Task,} from './model';
 
 class TaskOperation {
     constructor(name,idTask) {
@@ -63,16 +63,19 @@ export class Storage {
                 reCollection.forEach(function (item) {
                     var task = new Task(item.name,item.id); // чтобы не было object-ов
                     taskCollection.addTask(task,false);
+                    var test1 = localStorage.getItem('task-operation');
+                    console.log(test1);
                 });
             }
         } else {
             var commitTaskCollection = JSON.stringify(taskCollection);
-            var taskOperationColl = [];
+            var taskOperationColl = new TaskOperationColl();
+            var commitTaskOperationColl = JSON.stringify(taskOperationColl);
             localStorage.setItem('collection', commitTaskCollection);
             localStorage.setItem('version-global', 0);
             localStorage.setItem('operation-index', 0);
             localStorage.setItem('task-index', 0);
-            localStorage.setItem('task-operation',taskOperationColl);
+            localStorage.setItem('task-operation',commitTaskOperationColl);
         }
     }
 
@@ -84,51 +87,22 @@ export class Storage {
         return taskId;
     }
 
-
-   /* removeTaskStorage(id) {
-        var existCollection = localStorage.getItem('collection');
-        var reCollection = JSON.parse(existCollection);
-        reCollection = reCollection.filter(function (v) {
-            return v.id !=id;
-        });
-        localStorage.setItem('collection', reCollection);
-
-
-    }
-
-    addTaskStorage(task) {
-        var existCollection = localStorage.getItem('collection');
-        var reCollection = JSON.parse(existCollection);
-        if (existCollection!=null || existCollection!=undefined) {
-            reCollection = JSON.parse(existCollection);
-        }
-        console.log(reCollection);
-        reCollection.push(task);
-        localStorage.setItem('collection', reCollection);
-
-    } */
-    addTaskToOperColl(name,idTask) { 
+    addTaskToOperColl(name,idTask) {
         var rec = new TaskOperation(name,idTask);
         var taskOperationColl = localStorage.getItem('task-operation');
- 
-        if (this.version!=1){
-            console.log('до добавления очедной операции');
-            console.log(taskOperationColl);
-            /*ПРОБЛЕМЫ С ПАРСИНГОМ МАССИВА НАДО РЕШИТЬ*/
-            var reTaskOperationColl = JSON.parse(taskOperationColl);      
+        try {
+            var reTaskOperationColl = JSON.parse(taskOperationColl);
+        }        catch (e) {
+            var reTaskOperationColl = new TaskOperationColl();
         }
-        /* если добавляем операцию в первый раз, из-за проблем с парсингом */
-        else{
-            var reTaskOperationColl = [];
-            console.log('до первого очедной операции');
-            console.log(taskOperationColl);
-        }
-        reTaskOperationColl.push(rec);
-        console.log('после добавления операции');
-        console.log(reTaskOperationColl);
-        localStorage.setItem('task-operation',reTaskOperationColl);
-        taskOperationColl = localStorage.getItem('task-operation');
-        console.log(taskOperationColl);
+        var arrTaskOperationColl =Array.from(reTaskOperationColl);
+        arrTaskOperationColl.push(rec);
+        var commitArray = JSON.stringify(arrTaskOperationColl); 
+        localStorage.setItem('task-operation',commitArray);
+        var taskOperTest= localStorage.getItem('task-operation');
+        var reTaskOperTest = JSON.parse(taskOperTest);
+        console.log('считали заново');
+        console.log(reTaskOperTest);
     }
 
 

@@ -16,6 +16,7 @@ export class TaskCollection {
         this.taskCollection = [];
         this.storage.loadCollection(this);
         this.storage.equalVersion();
+        this.storage.showOperColl();
     }
 
     addTask(task,flag) {
@@ -24,10 +25,10 @@ export class TaskCollection {
             task.id = this.storage.getGlobalId();
             this.storage.incVersionLocal();
             this.storage.incVersionGlobal();
-            this.storage.addTaskToOperColl('add',task.id);
+            this.storage.addTaskToOperColl('add',task.id,task.name);
         }
         this.taskCollection.push(task);  
-        this.storage.rewriteCollection(this);
+        //this.storage.rewriteCollection(this);
     }
 
     removeTask(id) {
@@ -39,8 +40,8 @@ export class TaskCollection {
         console.log(this.taskCollection);
         this.storage.incVersionLocal();
         this.storage.incVersionGlobal();
-        this.storage.addTaskToOperColl('remove',Number(id));
-        this.storage.rewriteCollection(this);
+        this.storage.addTaskToOperColl('remove',Number(id),'');
+        //this.storage.rewriteCollection(this);
     }
 
     editTask(id,newName) {
@@ -50,8 +51,8 @@ export class TaskCollection {
                 
             }
         });
-        this.storage.addTaskToOperColl('edit',Number(id));
-        this.storage.rewriteCollection(this);
+        this.storage.addTaskToOperColl('edit',Number(id),newName);
+        //this.storage.rewriteCollection(this);
     }
 
     _getTasks() {

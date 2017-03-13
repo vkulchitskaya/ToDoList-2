@@ -2,13 +2,14 @@
 import {Task,} from './model';
 
 class TaskOperation {
-    constructor(name,idTask) {
+    constructor(name,idTask,nameTask) {
         var index = Number(localStorage.getItem('operation-index'));
         index++;
         localStorage.setItem('operation-index', index);
         this.idOper = index;
         this.name = name;
         this.idTask = idTask;
+        this.nameTask = nameTask;
     }
 }
 
@@ -87,8 +88,8 @@ export class Storage {
         return taskId;
     }
 
-    addTaskToOperColl(name,idTask) {
-        var rec = new TaskOperation(name,idTask);
+    addTaskToOperColl(name,idTask,nameTask) {
+        var rec = new TaskOperation(name,idTask,nameTask);
         var taskOperationColl = localStorage.getItem('task-operation');
         try {
             var reTaskOperationColl = JSON.parse(taskOperationColl);
@@ -99,9 +100,13 @@ export class Storage {
         arrTaskOperationColl.push(rec);
         var commitArray = JSON.stringify(arrTaskOperationColl); 
         localStorage.setItem('task-operation',commitArray);
-        var taskOperTest= localStorage.getItem('task-operation');
+        this.showOperColl();
+    }
+
+    showOperColl() {
+        var taskOperTest = localStorage.getItem('task-operation');
         var reTaskOperTest = JSON.parse(taskOperTest);
-        console.log('считали заново');
+        console.log('Коллекция операций');
         console.log(reTaskOperTest);
     }
 

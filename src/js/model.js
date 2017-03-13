@@ -26,8 +26,7 @@ export class TaskCollection {
             this.storage.incVersionGlobal();
             this.storage.addTaskToOperColl('add',task.id);
         }
-        this.taskCollection.push(task);
-        
+        this.taskCollection.push(task);  
         this.storage.rewriteCollection(this);
     }
 
@@ -46,10 +45,12 @@ export class TaskCollection {
 
     editTask(id,newName) {
         this.taskCollection.forEach(function (item) {
-            if (item.id===id) {
+            if (item.id==id) {
                 item.name=newName;
+                
             }
         });
+        this.storage.addTaskToOperColl('edit',Number(id));
         this.storage.rewriteCollection(this);
     }
 

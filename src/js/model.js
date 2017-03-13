@@ -37,7 +37,6 @@ export class TaskCollection {
         this.taskCollection = this.taskCollection.filter(function (v) {
             return	v.id !=id;
         });
-        console.log(this.taskCollection);
         this.storage.incVersionLocal();
         this.storage.incVersionGlobal();
         this.storage.addTaskToOperColl('remove',Number(id),'');

@@ -93,14 +93,15 @@ export class Storage {
         var taskOperationColl = localStorage.getItem('task-operation');
         try {
             var reTaskOperationColl = JSON.parse(taskOperationColl);
-        }        catch (e) {
+        } catch (e) {
             var reTaskOperationColl = new TaskOperationColl();
         }
         var arrTaskOperationColl =Array.from(reTaskOperationColl);
         arrTaskOperationColl.push(rec);
-        var commitArray = JSON.stringify(arrTaskOperationColl); 
+        var commitArray = JSON.stringify(arrTaskOperationColl);
         localStorage.setItem('task-operation',commitArray);
         this.showOperColl();
+        this.reBuildTask();
     }
 
     showOperColl() {
@@ -108,6 +109,25 @@ export class Storage {
         var reTaskOperTest = JSON.parse(taskOperTest);
         console.log('Коллекция операций');
         console.log(reTaskOperTest);
+    }
+
+    reBuildTask() {
+        var taskOperTest = localStorage.getItem('task-operation');
+        var reTaskOperTest = JSON.parse(taskOperTest);
+        var RemoveId = reTaskOperTest.filter(function (item) {
+            return	item.name == 'remove';
+        });
+        console.log(RemoveId);
+        var testArr;
+
+        RemoveId.forEach(function (item) {
+            reTaskOperTest = reTaskOperTest.filter(function(v){
+                return v.idTask !=item.idTask;
+            })
+        });
+        // осталась таблица с операций add и edit
+        console.log(reTaskOperTest);
+
     }
 
 

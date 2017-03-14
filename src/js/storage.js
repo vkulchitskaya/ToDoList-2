@@ -94,7 +94,7 @@ export class Storage {
         try {
             var reTaskOperationColl = JSON.parse(taskOperationColl);
         } catch (e) {
-            var reTaskOperationColl = new TaskOperationColl();
+            var reTaskOperationC; oll = new TaskOperationColl();
         }
         var arrTaskOperationColl =Array.from(reTaskOperationColl);
         arrTaskOperationColl.push(rec);
@@ -118,15 +118,57 @@ export class Storage {
             return	item.name == 'remove';
         });
         console.log(RemoveId);
-        var testArr;
 
         RemoveId.forEach(function (item) {
-            reTaskOperTest = reTaskOperTest.filter(function(v){
+            reTaskOperTest = reTaskOperTest.filter(function (v) {
                 return v.idTask !=item.idTask;
-            })
+            });
         });
         // осталась таблица с операций add и edit
         console.log(reTaskOperTest);
+        // найти все уникальные id задач
+        var testArrNumber =[];
+        reTaskOperTest.forEach(function (item) {
+            testArrNumber.push(item.idTask);
+
+        });
+        console.log('массив IdTask');
+        console.log(testArrNumber);
+
+        var obj = {};
+        testArrNumber.forEach(function (item) {
+            var str = item;
+            obj[str]=true;
+        });
+
+        var arrStr = Object.keys(obj);
+        // вывели массив уникальных задач
+        // сonsole.log(arrStr);
+        // переводим массив строк в числовой массив
+        var arrNum = [];
+        arrStr.forEach(function (item) {
+            arrNum.push(Number(item));
+        });
+        console.log('числовой массив задач ');
+        console.log(arrNum);
+/*В КАЧЕСТВЕ ЧИСТКИ ИСТОРИИ , МОЖНО УДАЛЯТЬ ВСЕ ЗАПИСИ C IDTASK, ГДЕ ХОТЯ БЫ РАЗ ВСТРЕТИЛСЯ REMOVE*/
+        /* ВЫВОД СПИСКА ОПЕРАЦИЙ ДЛЯ КАЖДОЙ ЗАДАЧИ. ДЛЯ КАЖДОЙ ЗАДАЧИ ПОКА НЕ ФИЛЬТРУЕТ ОПЕРАЦИИ 
+        var arrOper = [];
+        var tmpTaskArray = [];
+        arrNum.forEach(function (v) {
+            var tmpOper = reTaskOperTest.filter(function (s) {
+                return s.idTask=v;
+            });
+            
+            tmpOper.forEach(function (k) {
+                arrOper.push(k.idOper);
+            });
+
+            console.log('массив операций для задачи idTask=',v);
+            console.log(arrOper);
+            arrOper = [];
+        });*/
+
 
     }
 

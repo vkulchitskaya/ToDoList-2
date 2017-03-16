@@ -1,4 +1,4 @@
-import {Storage,TaskOperation,TaskOperationColl} from "./storage";
+import {Storage,TaskOperation,TaskOperationColl,} from './storage';
 
 
 export class Task {
@@ -11,12 +11,16 @@ export class Task {
 export class TaskCollection {
 
     constructor() {
+        this.taskCollection = [];
         this.storage = new Storage();
         this.storage.version = 0;
-        this.taskCollection = [];
         this.storage.loadCollection(this);
         this.storage.equalVersion();
         this.storage.showOperColl();
+        // здесь сравниваем код каждую секунду
+        var timerId = setInterval(function () {
+            console.log('проверка версий (сихронизация в случае отличий)');
+        }, 1000);
     }
 
     addTask(task,flag) {
@@ -27,8 +31,11 @@ export class TaskCollection {
             this.storage.incVersionGlobal();
             this.storage.addTaskToOperColl('add',task.id,task.name);
         }
-        this.taskCollection.push(task);  
-        //this.storage.rewriteCollection(this);
+        this.taskCollection.push(task);
+        // this.storage.rewriteCollection(this);  // функция пересобирания модели????
+        // по-хорошему, надо пересобирать каждую секунду, а не после выполнения операции
+        // а еще лучше пересобирать, только когда глобальная версия оказывается больше локальной, но
+        // проверять эти версии каждую секунду
     }
 
     removeTask(id) {
@@ -40,18 +47,20 @@ export class TaskCollection {
         this.storage.incVersionLocal();
         this.storage.incVersionGlobal();
         this.storage.addTaskToOperColl('remove',Number(id),'');
-        //this.storage.rewriteCollection(this);
+        // this.storage.rewriteCollection(this); скоро удалю
     }
 
     editTask(id,newName) {
         this.taskCollection.forEach(function (item) {
             if (item.id==id) {
                 item.name=newName;
-                
+
             }
         });
+        this.storage.incVersionLocal();
+        this.storage.incVersionGlobal();
         this.storage.addTaskToOperColl('edit',Number(id),newName);
-        //this.storage.rewriteCollection(this);
+        // this.storage.rewriteCollection(this); скоро удалю
     }
 
     _getTasks() {

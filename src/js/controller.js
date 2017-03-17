@@ -1,5 +1,4 @@
-import {Task,} from "./model";
-import {testLoad,} from "./helpers";
+import {Task,} from './model';
 
 export class Controller {
     constructor(view,taskCollection) {
@@ -8,15 +7,15 @@ export class Controller {
         this.view.bindTaskCreated(this.onTaskCreated.bind(this));
         this.view.bindTaskRemove(this.onTaskRemove.bind(this));
         this.view.bindTaskEdit(this.onTaskEdit.bind(this));
-		// var checkStorage = setInterval(testLoad(this.taskCollection.taskCollection), 1000);
-
 
     }
 
     onTaskCreated(name, callback) {
         var task = new Task(name,0);
-        this.taskCollection.addTask(task,true);
+        this.taskCollection.addTask(task);
         callback(this.taskCollection);
+        this.view.idField.value='';
+
     }
 
     onTaskRemove(id, callback) {

@@ -1,4 +1,4 @@
-import {qs,qt,} from "./helpers";
+import {qs,qt,} from './helpers';
 
 export class View {
 
@@ -39,10 +39,10 @@ export class View {
 
     _addEdit(tmpText,id) {
         var elem = self.idUl;
-        var newLi = document.createElement("li");
-        var edit = document.createElement("input");
+        var newLi = document.createElement('li');
+        var edit = document.createElement('input');
         console.log(tmpText);
-        edit.setAttribute("value",tmpText);
+        edit.setAttribute('value',tmpText);
         newLi.appendChild(edit);
         elem.appendChild(newLi);
         elem.lastChild.firstChild.focus();
@@ -61,32 +61,36 @@ export class View {
         var tasks = taskCollection._getTasks();
 
         tasks.forEach(function (item) {
-            var newLi = document.createElement("li");
-            newLi.setAttribute("data-id", item.id);
+            var newLi = document.createElement('li');
+            newLi.setAttribute('data-id', item.id);
             newLi.innerHTML =item.name;
 
             newLi.ondblclick = function () {
-                var tmpId = this.getAttribute("data-id");
+                var tmpId = this.getAttribute('data-id');
                 var tmpText = this.firstChild.data;
                 self._addEdit(tmpText,tmpId);
 
             };
 
-            var newSpan = document.createElement("span");
-            var txt = document.createTextNode("\u00D7");
+            var newSpan = document.createElement('span');
+            var txt = document.createTextNode('\u00D7');
             newSpan.appendChild(txt);
             newLi.appendChild(newSpan);
             self.idUl.appendChild(newLi);
 
             newSpan.onclick	= function	() {
-                var idTask = newLi.getAttribute("data-id");
-                alert("Удаляем задачу под номером..."+idTask);
+                var idTask = newLi.getAttribute('data-id');
+                alert('Удаляем задачу под номером...'+idTask);
                 self.onTaskRemove(idTask,self._display.bind(this));
             };
 
         });
 
+        if (this.idField!=undefined) {
+            this.idField.value='';
+        }
+
     }
 
- }
+}
 

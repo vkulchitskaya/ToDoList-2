@@ -5,5 +5,3 @@ export function qs(id)		{
 export function qt(tag)		{
     return document.getElementsByTagName(tag);
 }
-
-

@@ -9,7 +9,7 @@ class Application {
         this.taskCollection = new TaskCollection();
         this.view = new View('taskTittle','addButton','listTask','clearButton');
         this.controller = new Controller(this.view,this.taskCollection);
-        this.view._display(this.taskCollection); // убрать обращение к приватному методу
+        this.showCollection();
 
 		// check whether the TaskCollection was changed
         var periodic = setInterval(() => {
@@ -17,9 +17,12 @@ class Application {
             let c = this.taskCollection;
             if (!c.storage.actualVersion()) {
                 c.taskCollection = c.storage.loadCollection();
-                this.view._display(this.taskCollection); // убрать обращение к приватному методу
+                this.showCollection();
             }
         }, 1000);
+    }
+    showCollection() {
+        this.view._display(this.taskCollection);
     }
 }
 

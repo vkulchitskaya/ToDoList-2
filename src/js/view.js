@@ -54,10 +54,34 @@ export class View {
     }
 
     _display(taskCollection) {
-        var elem = self.idUl;
+        self._clearListTask();
+        self._addListTask(taskCollection);
+        if (this.idField!=undefined) {
+            this.idField.value='';
+        }
+    }
+
+    _clearListTask() {
+        var elem = this.idUl;
         while (elem.firstChild) {
             elem.removeChild(elem.firstChild);
         }
+    }
+    _addCloseSymbol(newLi) {
+        var newSpan = document.createElement('span');
+        var txt = document.createTextNode('\u00D7');
+        newSpan.appendChild(txt);
+        newLi.appendChild(newSpan);
+        this.idUl.appendChild(newLi);
+
+        newSpan.onclick	= function	() {
+            var idTask = newLi.getAttribute('data-id');
+            alert('Удаляем задачу под номером...'+idTask);
+            self.onTaskRemove(idTask,self._display.bind(this));
+        };
+    }
+
+    _addListTask(taskCollection) {
         var tasks = taskCollection._getTasks();
 
         tasks.forEach(function (item) {
@@ -69,28 +93,12 @@ export class View {
                 var tmpId = this.getAttribute('data-id');
                 var tmpText = this.firstChild.data;
                 self._addEdit(tmpText,tmpId);
-
             };
-
-            var newSpan = document.createElement('span');
-            var txt = document.createTextNode('\u00D7');
-            newSpan.appendChild(txt);
-            newLi.appendChild(newSpan);
-            self.idUl.appendChild(newLi);
-
-            newSpan.onclick	= function	() {
-                var idTask = newLi.getAttribute('data-id');
-                alert('Удаляем задачу под номером...'+idTask);
-                self.onTaskRemove(idTask,self._display.bind(this));
-            };
-
+            self._addCloseSymbol(newLi);
         });
 
-        if (this.idField!=undefined) {
-            this.idField.value='';
-        }
-
     }
+
 
 }
 

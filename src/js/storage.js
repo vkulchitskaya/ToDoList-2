@@ -31,7 +31,6 @@ export class Storage {
     }
 
     actualVersion() {
-
         return this.version === parseInt(get(COLLECTION_VERSION));
     }
 
@@ -43,8 +42,8 @@ export class Storage {
         if (existCollection != null) {
 
             result = JSON.parse(existCollection).map((i) => {
-            return new Task(i.name, i.id);
-        });
+                return new Task(i.name, i.id);
+            });
             this.version = parseInt(get(COLLECTION_VERSION));
 
         } else {

@@ -1,62 +1,74 @@
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babel = require('babelify');
+var gutil = require('gulp-util');
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var webpackConfig = require('./webpack.config.js');
 var eslint = require('gulp-eslint');
 
-function compile(watch) {
-  var bundler = watchify(browserify('./src/js/application.js', { debug: true }).transform(babel, { "presets": ["es2015"]} ));
-  
-  function rebundle() {
-    bundler.bundle()
-      .on('error', function(err) { console.error(err); this.emit('end'); })
-      .pipe(source('build.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./build'));
-  }
+// The development server (the recommended option for development)
+gulp.task('default', ['webpack-dev-server',]);
 
-  function copyhtml() {
-    gulp.src('src/index.html')
-  		.pipe(gulp.dest('build'));
-  }
+// Production build
+gulp.task('build', ['webpack:build',]);
 
-  if (watch) {
-    bundler.on('update', function() {
-      console.log('-> bundling...');      
-      copyhtml();
-      rebundle();
-    });
-  }
-
-  // вот этот кусочек надо будет переделать
-  copyhtml();
-  rebundle();
-}
-
-function watch() {
-  return compile(true);
-};
-
-
-
-gulp.task('lint', function() {
-  return gulp.src('./src/js/**').pipe(eslint({
-    'rules':{
-        'quotes': [1, 'single'],
-        'semi': [1, 'always']
-    }
-  }))
+// Linting
+gulp.task('lint', function () {
+    return gulp.src('./src/js/**').pipe(eslint({
+        'rules': {
+            'quotes': [1, 'single',],
+            'semi': [1, 'always',],
+        },
+    }))
   .pipe(eslint.format())
   .pipe(eslint.failOnError());
 });
 
+gulp.task('webpack:build', function (callback) {
+    webpack(webpackConfig).run(onBuild(callback));
+    copyhtml();
+});
 
-gulp.task('build', function() { return compile(); });
-gulp.task('watch', function() { return watch(); });
+gulp.task('webpack-dev-server', function (callback) {
 
-gulp.task('default', ['watch']);
+    // modify some webpack config options
+    var myConfig = Object.create(webpackConfig);
+    myConfig.devtool = 'inline-source-map';
+    copyhtml();
+
+    // Start a webpack-dev-server
+    new WebpackDevServer(webpack(myConfig), {
+        publicPath: '/' + myConfig.output.publicPath,
+        stats: {
+            colors: true,
+        },
+    }).listen(8080, 'localhost', function (err) {
+        if (err) {
+            throw new gutil.PluginError('webpack-dev-server', err);
+        }
+        gutil.log('[webpack-dev-server]', 'http://localhost:8080/build/index.html');
+    });
+});
+
+function onBuild(callback) {
+    return function (err, stats) {
+        if (err) {
+            gutil.log('Error', err);
+            if (callback) {
+                callback();
+            }
+        } else {
+            Object.keys(stats.compilation.assets).forEach(function (key) {
+                gutil.log('Webpack: output ', gutil.colors.green(key));
+            });
+            gutil.log('Webpack: ', gutil.colors.blue('finished ', stats.compilation.name));
+            if (callback) {
+                callback();
+            }
+        }
+    };
+}
+
+function copyhtml() {
+    gulp.src('src/index.html')
+        .pipe(gulp.dest('build'));
+}

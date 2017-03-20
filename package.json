@@ -22,14 +22,19 @@
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "eslint": "^3.16.1",
+    "eslint-config-yandex": "^1.0.6",
+    "eslint-loader": "^1.6.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^3.0.1",
     "gulp-install": "^0.6.0",
     "gulp-sourcemaps": "^2.4.1",
+    "gulp-util": "^3.0.8",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.9.0"
+    "watchify": "^3.9.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
   }
 }

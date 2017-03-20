@@ -1,9 +1,12 @@
-# Usage
-
-Just launch in console:
+# Installation
 
 ```bash
-$ gulp
+$ git clone ....
+$ npm install
 ```
 
-You can edit `js` files in the `src` directory and check result in the `build` directory. 
+# Usage
+
+* Use `gulp build` to build production code
+* Use `gulp` to start dev server
+* Use `gulp lint` to check the code

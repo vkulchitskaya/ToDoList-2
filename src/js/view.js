@@ -7,7 +7,7 @@ export class View {
         this.idButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
-        self=this; /* надо избавиться*/
+        self=this;
 
         this.idButton.onclick = () => {
             this.onTaskCreated(this._getValue(), this._display.bind(this));
@@ -67,11 +67,12 @@ export class View {
             elem.removeChild(elem.firstChild);
         }
     }
-    _addCloseSymbol(newLi) {
+    _addCloseSymbol(checkbox,newLi) {
         var newSpan = document.createElement('span');
         var txt = document.createTextNode('\u00D7');
         newSpan.appendChild(txt);
         newLi.appendChild(newSpan);
+        
         this.idUl.appendChild(newLi);
 
         newSpan.onclick	= function	() {
@@ -83,20 +84,34 @@ export class View {
 
     _addListTask(taskCollection) {
         var tasks = taskCollection._getTasks();
+        
 
         tasks.forEach(function (item) {
             var newLi = document.createElement('li');
             newLi.setAttribute('data-id', item.id);
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
             newLi.innerHTML =item.name;
+            newLi.appendChild(checkbox);
+            
+           
+            //checkbox.appendChild(newLi);
 
             newLi.ondblclick = function () {
                 var tmpId = this.getAttribute('data-id');
                 var tmpText = this.firstChild.data;
                 self._addEdit(tmpText,tmpId);
             };
-            self._addCloseSymbol(newLi);
+            self._addCloseSymbol(checkbox,newLi);
+            //self._addCheckTask(newLi);
         });
 
+    }
+
+    _addCheckTask(newLi){
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        newLi.appendChild(checkbox);
     }
 
 

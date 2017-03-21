@@ -2,6 +2,7 @@ import {View,} from './view';
 import {TaskCollection,} from './model';
 import {Controller,} from './controller';
 import {Storage,} from './storage';
+import {$on,} from './helpers'
 
 class Application {
 
@@ -26,7 +27,7 @@ class Application {
     }
 }
 
-window.onload = function () {
+$on(window, 'load', () => {
     var application = new Application();
     console.log(application.taskCollection);
-};
+});

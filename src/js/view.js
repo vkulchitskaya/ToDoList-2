@@ -1,4 +1,4 @@
-import {qs,} from './helpers';
+import {qs,$on,} from './helpers';
 
 export class View {
 
@@ -14,19 +14,16 @@ export class View {
         };
         /* *********************** */
 
-
         self=this;
 
-        this.idButton.onclick = () => {
+        $on(this.idButton, 'click', () => {
             this.onTaskCreated(this._getValue(), this._display.bind(this));
+        });
 
-        };
-
-        this.idButtonClear.onclick= function () {
+        $on(this.idButtonClear, 'click', () => {
             localStorage.clear();
             location.reload();
-        };
-
+        });
     }
 
     bindTaskCreated(handler) {
@@ -128,7 +125,5 @@ export class View {
         checkbox.type = 'checkbox';
         newLi.appendChild(checkbox);
     }
-
-
 }
 

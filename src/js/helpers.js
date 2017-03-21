@@ -4,7 +4,7 @@
  * @param {string} selector Selector to query
  */
 export function qs(selector)		{
-    return document.querySelector(id);
+    return document.querySelector(selector);
 }
 
 /**

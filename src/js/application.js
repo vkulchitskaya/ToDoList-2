@@ -27,7 +27,6 @@ class Application {
     }
 }
 
-$on(window, 'load', () => {
-    var application = new Application();
-    console.log(application.taskCollection);
+$on(window, 'load', () => { 
+    new Application();
 });

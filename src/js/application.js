@@ -27,6 +27,6 @@ class Application {
     }
 }
 
-$on(window, 'load', () => { 
+$on(window, 'load', () => {
     new Application();
 });

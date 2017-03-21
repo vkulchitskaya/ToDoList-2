@@ -1,10 +1,10 @@
 import {Storage,} from './storage';
 
 export class Task {
-    constructor(name,id) {
+    constructor(name,id,done) {
         this.name = name;
-        this.id=id;
-        this.done = false;
+        this.id = id;
+        this.done = done;
     }
 }
 
@@ -58,6 +58,7 @@ export class TaskCollection {
             }
         });
         console.log(this.taskCollection);
+        this.storage.rewriteCollection(this);
     }
 
     _getTasks() {

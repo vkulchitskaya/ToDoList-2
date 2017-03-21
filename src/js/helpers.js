@@ -1,7 +1,19 @@
-export function qs(id)		{
-    return document.getElementById(id);
+/**
+ * querySelector wrapper
+ *
+ * @param {string} selector Selector to query
+ */
+export function qs(selector)		{
+    return document.querySelector(selector);
 }
 
-export function qt(tag)		{
-    return document.getElementsByTagName(tag);
+/**
+ * addEventListener wrapper
+ *
+ * @param {*Element|Window} Target element
+ * @param {*string} Event name to bind
+ * @param {*Function} Capture the event
+ */
+export function $on(target, type, callback) {
+    target.addEventListener(type, callback);
 }

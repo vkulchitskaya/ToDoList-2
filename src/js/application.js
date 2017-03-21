@@ -7,7 +7,7 @@ class Application {
 
     constructor() {
         this.taskCollection = new TaskCollection();
-        this.view = new View('taskTittle','addButton','listTask','clearButton','testButton');
+        this.view = new View('#taskTittle','#addButton','#listTask','#clearButton','#testButton');
         this.controller = new Controller(this.view,this.taskCollection);
         this.showCollection();
 

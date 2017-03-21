@@ -1,7 +1,8 @@
-export function qs(id)		{
-    return document.getElementById(id);
-}
-
-export function qt(tag)		{
-    return document.getElementsByTagName(tag);
+/**
+ * querySelector wrapper
+ *
+ * @param {string} selector Selector to query
+ */
+export function qs(selector)		{
+    return document.querySelector(id);
 }

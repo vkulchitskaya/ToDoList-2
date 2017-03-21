@@ -1,4 +1,4 @@
-import {qs,qt,} from './helpers';
+import {qs,} from './helpers';
 
 export class View {
 

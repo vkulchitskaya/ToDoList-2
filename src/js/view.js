@@ -2,11 +2,19 @@ import {qs,qt,} from './helpers';
 
 export class View {
 
-    constructor(idField,idButton,idUl,idButtonClear) {
+    constructor(idField,idButton,idUl,idButtonClear,testButton) {
         this.idField=qs(idField);
         this.idButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
+        /* ***************** */
+        this.testButton = qs(testButton);
+        this.testButton.onclick = function () {
+            self._showCheckTask();
+        };
+        /* *********************** */
+
+
         self=this;
 
         this.idButton.onclick = () => {
@@ -31,6 +39,10 @@ export class View {
 
     bindTaskEdit(handler) {
         this.onTaskEdit = handler;
+    }
+
+    bindTaskCheck(handler) {
+        this.onTaskCheck = handler;
     }
 
     _getValue() {
@@ -72,7 +84,7 @@ export class View {
         var txt = document.createTextNode('\u00D7');
         newSpan.appendChild(txt);
         newLi.appendChild(newSpan);
-        
+
         this.idUl.appendChild(newLi);
 
         newSpan.onclick	= function	() {
@@ -84,18 +96,22 @@ export class View {
 
     _addListTask(taskCollection) {
         var tasks = taskCollection._getTasks();
-        
+
 
         tasks.forEach(function (item) {
             var newLi = document.createElement('li');
             newLi.setAttribute('data-id', item.id);
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
+            checkbox.checked = item.done;
+
+            checkbox.onclick = function () {
+                var idTask = Number(this.parentNode.getAttribute('data-id'));
+                var done = this.checked;
+                self.onTaskCheck(idTask,done);
+            };
             newLi.innerHTML =item.name;
             newLi.appendChild(checkbox);
-            
-           
-            //checkbox.appendChild(newLi);
 
             newLi.ondblclick = function () {
                 var tmpId = this.getAttribute('data-id');
@@ -103,12 +119,11 @@ export class View {
                 self._addEdit(tmpText,tmpId);
             };
             self._addCloseSymbol(checkbox,newLi);
-            //self._addCheckTask(newLi);
         });
 
     }
 
-    _addCheckTask(newLi){
+    _addCheckTask(newLi) {
         var checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         newLi.appendChild(checkbox);

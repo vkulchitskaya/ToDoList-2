@@ -4,6 +4,7 @@ export class Task {
     constructor(name,id) {
         this.name = name;
         this.id=id;
+        this.done = false;
     }
 }
 
@@ -29,8 +30,6 @@ export class TaskCollection {
             task.id =1;
         }
         this.taskCollection.push(task);
-        console.log(task);
-        console.log(this.taskCollection);
         this.storage.rewriteCollection(this);
 
     }
@@ -50,6 +49,15 @@ export class TaskCollection {
             }
         });
         this.storage.rewriteCollection(this);
+    }
+
+    setTaskDone(id,done) {
+        this.taskCollection.forEach(function (item) {
+            if (item.id==id) {
+                item.done=done;
+            }
+        });
+        console.log(this.taskCollection);
     }
 
     _getTasks() {

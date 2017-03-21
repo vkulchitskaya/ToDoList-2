@@ -7,6 +7,7 @@ export class Controller {
         this.view.bindTaskCreated(this.onTaskCreated.bind(this));
         this.view.bindTaskRemove(this.onTaskRemove.bind(this));
         this.view.bindTaskEdit(this.onTaskEdit.bind(this));
+        this.view.bindTaskCheck(this.onTaskCheck.bind(this));
 
     }
 
@@ -14,8 +15,6 @@ export class Controller {
         var task = new Task(name,0);
         this.taskCollection.addTask(task);
         callback(this.taskCollection);
-        this.view.idField.value='';
-
     }
 
     onTaskRemove(id, callback) {
@@ -26,6 +25,10 @@ export class Controller {
     onTaskEdit(name,id, callback) {
         this.taskCollection.editTask(id,name);
         callback(this.taskCollection);
+    }
+
+    onTaskCheck(id,done) {
+        this.taskCollection.setTaskDone(id,done);
     }
 
 }

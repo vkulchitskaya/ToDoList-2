@@ -65,7 +65,7 @@ export class View {
     _display(taskCollection) {
         self._clearListTask();
         self._addListTask(taskCollection);
-        if (this.idField!=undefined) {
+        if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
@@ -98,7 +98,7 @@ export class View {
         tasks.forEach(function (item) {
             var newLi = document.createElement('li');
             newLi.setAttribute('data-id', item.id);
-            var checkbox = document.createElement('input');
+            let checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.checked = item.done;
 

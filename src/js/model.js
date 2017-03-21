@@ -18,7 +18,7 @@ export class TaskCollection {
 
     addTask(task) {
         var maxIdTask = 0;
-        if (this.taskCollection !=[]) {
+        if (this.taskCollection !== []) {
             this.taskCollection.forEach(function (item) {
                 if (item.id>maxIdTask) {
                     maxIdTask=item.id;
@@ -36,7 +36,7 @@ export class TaskCollection {
 
     removeTask(id) {
         this.taskCollection = this.taskCollection.filter(function (v) {
-            return	v.id !=id
+            return	v.id !== id
 ;
         });
         this.storage.rewriteCollection(this);
@@ -44,7 +44,7 @@ export class TaskCollection {
 
     editTask(id,newName) {
         this.taskCollection.forEach(function (item) {
-            if (item.id==id) {
+            if (item.id === id) {
                 item.name=newName;
             }
         });
@@ -53,7 +53,7 @@ export class TaskCollection {
 
     setTaskDone(id,done) {
         this.taskCollection.forEach(function (item) {
-            if (item.id==id) {
+            if (item.id === id) {
                 item.done=done;
             }
         });

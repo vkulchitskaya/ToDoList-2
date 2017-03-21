@@ -2,7 +2,7 @@ import {View,} from './view';
 import {TaskCollection,} from './model';
 import {Controller,} from './controller';
 import {Storage,} from './storage';
-import {$on,} from './helpers'
+import {$on,} from './helpers';
 
 class Application {
 
@@ -13,7 +13,7 @@ class Application {
         this.showCollection();
 
 		// check whether the TaskCollection was changed
-        var periodic = setInterval(() => {
+        let periodic = setInterval(() => {
 
             let c = this.taskCollection;
             if (!c.storage.actualVersion()) {

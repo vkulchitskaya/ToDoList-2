@@ -15,14 +15,13 @@ export class Controller {
     }
 
     onTaskCreated(name, callback) {
-        var task = new Task(name,0,false);
-        this.storage.addTask(task);
+        this.storage.addTask(new Task(name,0,false));
         callback(this.storage.taskCollection);
     }
 
     onTaskRemove(id, callback) {
-        this.taskCollection.removeTask(id);
-        callback(this.taskCollection);
+        this.storage.removeTask(id);
+        callback(this.storage.taskCollection);
     }
 
     onTaskEdit(name,id, callback) {

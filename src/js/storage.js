@@ -70,5 +70,10 @@ export class Storage {
         this.taskCollection.addTask(task);
         this.rewriteCollection(this.taskCollection);
     }
+
+    removeTask(id) {
+        this.taskCollection.removeTask(id);
+        this.rewriteCollection(this.taskCollection);
+    }
 }
 

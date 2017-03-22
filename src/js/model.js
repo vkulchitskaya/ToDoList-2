@@ -32,10 +32,8 @@ export class TaskCollection {
 
     removeTask(id) {
         this.taskCollection = this.taskCollection.filter(function (v) {
-            return	v.id !== id
-;
+            return	v.id !== parseInt(id);
         });
-        this.storage.rewriteCollection(this);
     }
 
     editTask(id,newName) {

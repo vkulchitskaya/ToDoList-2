@@ -16,10 +16,6 @@ export class View {
 
         self=this;
 
-        $on(this.idButton, 'click', () => {
-            this.onTaskCreated(this._getValue(), this._display.bind(this));
-        });
-
         $on(this.idButtonClear, 'click', () => {
             localStorage.clear();
             location.reload();
@@ -27,7 +23,10 @@ export class View {
     }
 
     bindTaskCreated(handler) {
-        this.onTaskCreated = handler;
+
+        $on(this.idButton, 'click', () => {
+            handler(this._getValue(), this._display.bind(this));
+        });
     }
 
     bindTaskRemove(handler) {

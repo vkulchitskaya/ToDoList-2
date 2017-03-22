@@ -12,8 +12,6 @@ export class TaskCollection {
 
     constructor() {
         this.taskCollection = [];
-        this.storage = new Storage();
-        this.taskCollection = this.storage.loadCollection();
     }
 
     addTask(task) {
@@ -30,8 +28,6 @@ export class TaskCollection {
             task.id =1;
         }
         this.taskCollection.push(task);
-        this.storage.rewriteCollection(this);
-
     }
 
     removeTask(id) {

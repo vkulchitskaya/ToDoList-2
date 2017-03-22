@@ -3,7 +3,7 @@
  *
  * @param {string} selector Selector to query
  */
-export function qs(selector)		{
+export function qs(selector)		{    
     return document.querySelector(selector);
 }
 

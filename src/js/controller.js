@@ -30,7 +30,7 @@ export class Controller {
     }
 
     onTaskCheck(id,done) {
-        this.taskCollection.setTaskDone(id,done);
+        this.storage.setTaskDone(id,done);
     }
 
 }

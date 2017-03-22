@@ -51,8 +51,7 @@ export class TaskCollection {
                 item.done=done;
             }
         });
-        console.log(this.taskCollection);
-        this.storage.rewriteCollection(this);
+        console.log(this.taskCollection);        
     }
 
     _getTasks() {

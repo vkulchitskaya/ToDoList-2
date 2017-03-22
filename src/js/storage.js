@@ -1,4 +1,4 @@
-import {Task,} from './model';
+import {Task, TaskCollection,} from './model';
 
 const COLLECTION = 'collection';
 const COLLECTION_VERSION = 'collection_version';
@@ -21,12 +21,14 @@ export class Storage {
 
     constructor() {
         this.version = 0;
+        this.taskCollection = new TaskCollection();
+        this.loadCollection();
     }
 
-    rewriteCollection(taskCollection) {
+    rewriteCollection() {
 
         this.version++;
-        set(COLLECTION, JSON.stringify(taskCollection.taskCollection));
+        set(COLLECTION, JSON.stringify(this.taskCollection.taskCollection));
         set(COLLECTION_VERSION, this.version);
     }
 
@@ -54,7 +56,29 @@ export class Storage {
             set(COLLECTION_VERSION, this.version);
         }
 
+        this.taskCollection.taskCollection = result;
+
         return result;
+    }
+
+    addTask(task) {
+        this.taskCollection.addTask(task);
+        this.rewriteCollection();
+    }
+
+    removeTask(id) {
+        this.taskCollection.removeTask(id);
+        this.rewriteCollection();
+    }
+
+    editTask(id,newName) {
+        this.taskCollection.editTask(id, newName);
+        this.rewriteCollection();
+    }
+
+    setTaskDone(id,done) {
+        this.taskCollection.setTaskDone(id, done);
+        this.rewriteCollection();
     }
 }
 

@@ -12,8 +12,6 @@ export class TaskCollection {
 
     constructor() {
         this.taskCollection = [];
-        this.storage = new Storage();
-        this.taskCollection = this.storage.loadCollection();
     }
 
     addTask(task) {
@@ -30,25 +28,20 @@ export class TaskCollection {
             task.id =1;
         }
         this.taskCollection.push(task);
-        this.storage.rewriteCollection(this);
-
     }
 
     removeTask(id) {
         this.taskCollection = this.taskCollection.filter(function (v) {
-            return	v.id !== id
-;
+            return	v.id !== parseInt(id);
         });
-        this.storage.rewriteCollection(this);
     }
 
     editTask(id,newName) {
         this.taskCollection.forEach(function (item) {
-            if (item.id === id) {
+            if (item.id === parseInt(id)) {
                 item.name=newName;
             }
         });
-        this.storage.rewriteCollection(this);
     }
 
     setTaskDone(id,done) {
@@ -58,7 +51,6 @@ export class TaskCollection {
             }
         });
         console.log(this.taskCollection);
-        this.storage.rewriteCollection(this);
     }
 
     _getTasks() {

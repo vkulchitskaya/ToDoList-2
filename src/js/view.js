@@ -4,7 +4,7 @@ export class View {
 
     constructor(idField,idButton,idUl,idButtonClear,testButton) {
         this.idField=qs(idField);
-        this.idButton=qs(idButton);
+        this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
         /* ***************** */
@@ -16,10 +16,6 @@ export class View {
 
         self=this;
 
-        $on(this.idButton, 'click', () => {
-            this.onTaskCreated(this._getValue(), this._display.bind(this));
-        });
-
         $on(this.idButtonClear, 'click', () => {
             localStorage.clear();
             location.reload();
@@ -27,7 +23,10 @@ export class View {
     }
 
     bindTaskCreated(handler) {
-        this.onTaskCreated = handler;
+
+        $on(this.$newTaskButton, 'click', () => {
+            handler(this.idField.value);
+        });
     }
 
     bindTaskRemove(handler) {
@@ -56,13 +55,13 @@ export class View {
         elem.appendChild(newLi);
         elem.lastChild.firstChild.focus();
         edit.onblur =() => {
-            self.onTaskEdit(edit.value,id,this._display.bind(this));
+            self.onTaskEdit(edit.value,id);
 
         };
 
     }
 
-    _display(taskCollection) {
+    display(taskCollection) {
         self._clearListTask();
         self._addListTask(taskCollection);
         if (this.idField!==undefined) {
@@ -87,7 +86,7 @@ export class View {
         newSpan.onclick	= function	() {
             var idTask = newLi.getAttribute('data-id');
             alert('Удаляем задачу под номером...'+idTask);
-            self.onTaskRemove(idTask,self._display.bind(this));
+            self.onTaskRemove(idTask);
         };
     }
 

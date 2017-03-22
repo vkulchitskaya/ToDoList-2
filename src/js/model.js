@@ -38,7 +38,7 @@ export class TaskCollection {
 
     editTask(id,newName) {
         this.taskCollection.forEach(function (item) {
-            if (item.id === id) {
+            if (item.id === parseInt(id)) {
                 item.name=newName;
             }
         });

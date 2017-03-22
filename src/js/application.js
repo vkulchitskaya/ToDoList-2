@@ -10,14 +10,14 @@ class Application {
         this.taskCollection = new TaskCollection();
         this.view = new View('#taskTittle','#addButton','#listTask','#clearButton','#testButton');
         this.controller = new Controller(this.view,this.taskCollection);
+        this.storage = new Storage();
         this.showCollection();
 
 		// check whether the TaskCollection was changed
-        let periodic = setInterval(() => {
+        setInterval(() => {
 
-            let c = this.taskCollection;
-            if (!c.storage.actualVersion()) {
-                c.taskCollection = c.storage.loadCollection();
+            if (!this.storage.actualVersion()) {
+                this.taskCollection.taskCollection = this.storage.loadCollection();
                 this.showCollection();
             }
         }, 1000);

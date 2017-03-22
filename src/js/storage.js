@@ -21,6 +21,7 @@ export class Storage {
 
     constructor() {
         this.version = 0;
+        this.loadCollection();
     }
 
     rewriteCollection(taskCollection) {

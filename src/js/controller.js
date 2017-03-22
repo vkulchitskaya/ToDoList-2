@@ -11,19 +11,19 @@ export class Controller {
         this.view.bindTaskCheck(this.onTaskCheck.bind(this));
     }
 
-    onTaskCreated(name, callback) {
+    onTaskCreated(name) {
         this.storage.addTask(new Task(name,0,false));
-        callback(this.storage.taskCollection);
+        this.view.display(this.storage.taskCollection);
     }
 
-    onTaskRemove(id, callback) {
+    onTaskRemove(id) {
         this.storage.removeTask(id);
-        callback(this.storage.taskCollection);
+        this.view.display(this.storage.taskCollection);
     }
 
-    onTaskEdit(name,id, callback) {
+    onTaskEdit(name,id) {
         this.storage.editTask(id,name);
-        callback(this.storage.taskCollection);
+        this.view.display(this.storage.taskCollection);
     }
 
     onTaskCheck(id,done) {

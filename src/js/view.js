@@ -25,7 +25,7 @@ export class View {
     bindTaskCreated(handler) {
 
         $on(this.$newTaskButton, 'click', () => {
-            handler(this._getValue(), this._display.bind(this));
+            handler(this.idField.value);
         });
     }
 
@@ -55,13 +55,13 @@ export class View {
         elem.appendChild(newLi);
         elem.lastChild.firstChild.focus();
         edit.onblur =() => {
-            self.onTaskEdit(edit.value,id,this._display.bind(this));
+            self.onTaskEdit(edit.value,id);
 
         };
 
     }
 
-    _display(taskCollection) {
+    display(taskCollection) {
         self._clearListTask();
         self._addListTask(taskCollection);
         if (this.idField!==undefined) {
@@ -86,7 +86,7 @@ export class View {
         newSpan.onclick	= function	() {
             var idTask = newLi.getAttribute('data-id');
             alert('Удаляем задачу под номером...'+idTask);
-            self.onTaskRemove(idTask,self._display.bind(this));
+            self.onTaskRemove(idTask);
         };
     }
 

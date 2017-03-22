@@ -23,7 +23,7 @@ class Application {
         }, 1000);
     }
     showCollection() {
-        this.view._display(this.storage.taskCollection);
+        this.view.display(this.storage.taskCollection);
     }
 }
 

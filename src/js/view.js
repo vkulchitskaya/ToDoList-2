@@ -4,7 +4,7 @@ export class View {
 
     constructor(idField,idButton,idUl,idButtonClear,testButton) {
         this.idField=qs(idField);
-        this.idButton=qs(idButton);
+        this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
         /* ***************** */
@@ -24,7 +24,7 @@ export class View {
 
     bindTaskCreated(handler) {
 
-        $on(this.idButton, 'click', () => {
+        $on(this.$newTaskButton, 'click', () => {
             handler(this._getValue(), this._display.bind(this));
         });
     }

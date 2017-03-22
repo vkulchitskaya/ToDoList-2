@@ -30,10 +30,10 @@ export class Storage {
         return this.taskCollection;
     }
 
-    rewriteCollection(taskCollection) {
+    rewriteCollection() {
 
         this.version++;
-        set(COLLECTION, JSON.stringify(taskCollection.taskCollection));
+        set(COLLECTION, JSON.stringify(this.taskCollection.taskCollection));
         set(COLLECTION_VERSION, this.version);
     }
 
@@ -68,22 +68,22 @@ export class Storage {
 
     addTask(task) {
         this.taskCollection.addTask(task);
-        this.rewriteCollection(this.taskCollection);
+        this.rewriteCollection();
     }
 
     removeTask(id) {
         this.taskCollection.removeTask(id);
-        this.rewriteCollection(this.taskCollection);
+        this.rewriteCollection();
     }
 
     editTask(id,newName) {
         this.taskCollection.editTask(id, newName);
-        this.rewriteCollection(this.taskCollection);
+        this.rewriteCollection();
     }
 
     setTaskDone(id,done) {
         this.taskCollection.setTaskDone(id, done);
-        this.rewriteCollection(this.taskCollection);
+        this.rewriteCollection();
     }
 }
 

@@ -25,11 +25,6 @@ export class Storage {
         this.loadCollection();
     }
 
-    // TODO: remove in the future
-    _getTaskCollection() {
-        return this.taskCollection;
-    }
-
     rewriteCollection() {
 
         this.version++;

@@ -42,7 +42,6 @@ export class TaskCollection {
                 item.name=newName;
             }
         });
-        this.storage.rewriteCollection(this);
     }
 
     setTaskDone(id,done) {
@@ -51,7 +50,7 @@ export class TaskCollection {
                 item.done=done;
             }
         });
-        console.log(this.taskCollection);        
+        console.log(this.taskCollection);
     }
 
     _getTasks() {

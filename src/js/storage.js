@@ -76,6 +76,11 @@ export class Storage {
         this.rewriteCollection(this.taskCollection);
     }
 
+    editTask(id,newName) {
+        this.taskCollection.editTask(id, newName);
+        this.rewriteCollection(this.taskCollection);
+    }
+
     setTaskDone(id,done) {
         this.taskCollection.setTaskDone(id, done);
         this.rewriteCollection(this.taskCollection);

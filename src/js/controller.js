@@ -25,8 +25,8 @@ export class Controller {
     }
 
     onTaskEdit(name,id, callback) {
-        this.taskCollection.editTask(id,name);
-        callback(this.taskCollection);
+        this.storage.editTask(id,name);
+        callback(this.storage.taskCollection);
     }
 
     onTaskCheck(id,done) {

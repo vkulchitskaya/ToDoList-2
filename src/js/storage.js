@@ -4,7 +4,7 @@ const COLLECTION = 'collection';
 const COLLECTION_VERSION = 'collection_version';
 
 let get = (key) => {
-    if (typeof key !== 'string' || localStorage.getItem(key) == null || localStorage.getItem(key) == undefined)	{
+    if (typeof key !== 'string' || localStorage.getItem(key) === null || localStorage.getItem(key) === undefined)	{
         return null;
     }
     return localStorage.getItem(key);
@@ -39,7 +39,7 @@ export class Storage {
         var result = [];
         var existCollection = get(COLLECTION);
 
-        if (existCollection != null) {
+        if (existCollection !== null) {
 
             result = JSON.parse(existCollection).map((i) => {
                 return new Task(i.name, i.id, i.done);

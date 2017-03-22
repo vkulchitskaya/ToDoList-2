@@ -1,4 +1,4 @@
-import {qs,qt,} from './helpers';
+import {qs,$on,} from './helpers';
 
 export class View {
 
@@ -14,19 +14,16 @@ export class View {
         };
         /* *********************** */
 
-
         self=this;
 
-        this.idButton.onclick = () => {
+        $on(this.idButton, 'click', () => {
             this.onTaskCreated(this._getValue(), this._display.bind(this));
+        });
 
-        };
-
-        this.idButtonClear.onclick= function () {
+        $on(this.idButtonClear, 'click', () => {
             localStorage.clear();
             location.reload();
-        };
-
+        });
     }
 
     bindTaskCreated(handler) {
@@ -68,7 +65,7 @@ export class View {
     _display(taskCollection) {
         self._clearListTask();
         self._addListTask(taskCollection);
-        if (this.idField!=undefined) {
+        if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
@@ -101,7 +98,7 @@ export class View {
         tasks.forEach(function (item) {
             var newLi = document.createElement('li');
             newLi.setAttribute('data-id', item.id);
-            var checkbox = document.createElement('input');
+            let checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.checked = item.done;
 
@@ -128,7 +125,5 @@ export class View {
         checkbox.type = 'checkbox';
         newLi.appendChild(checkbox);
     }
-
-
 }
 

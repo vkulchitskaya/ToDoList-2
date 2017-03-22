@@ -5,9 +5,6 @@ export class Controller {
         this.view = view;
         this.storage = storage;
 
-        // TODO: remove in the future: controller don't know about TaskCollection
-        this.taskCollection = storage._getTaskCollection();
-
         this.view.bindTaskCreated(this.onTaskCreated.bind(this));
         this.view.bindTaskRemove(this.onTaskRemove.bind(this));
         this.view.bindTaskEdit(this.onTaskEdit.bind(this));

@@ -7,7 +7,7 @@ import {$on,} from './helpers';
 $on(window, 'load', () => {
 
     const storage = new Storage();
-    const view = new View('#taskTittle','#addButton','#listTask','#clearButton','#testButton');
+    const view = new View('#taskTittle','#addButton','#listTask','#clearButton');
     const controller = new Controller(view, storage);
     const setView = () => view.display(storage.taskCollection);
 

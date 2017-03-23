@@ -1,18 +1,12 @@
-import {qs,$on,} from './helpers';
+import {qs,qsa,$on,} from './helpers';
 
 export class View {
 
-    constructor(idField,idButton,idUl,idButtonClear,testButton) {
+    constructor(idField,idButton,idUl,idButtonClear) {
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
-        /* ***************** */
-        this.testButton = qs(testButton);
-        this.testButton.onclick = function () {
-            self._showCheckTask();
-        };
-        /* *********************** */
 
         self=this;
 
@@ -49,14 +43,12 @@ export class View {
         var elem = self.idUl;
         var newLi = document.createElement('li');
         var edit = document.createElement('input');
-        console.log(tmpText);
         edit.setAttribute('value',tmpText);
         newLi.appendChild(edit);
         elem.appendChild(newLi);
         elem.lastChild.firstChild.focus();
         edit.onblur =() => {
             self.onTaskEdit(edit.value,id);
-
         };
 
     }
@@ -64,6 +56,7 @@ export class View {
     display(taskCollection) {
         self._clearListTask();
         self._addListTask(taskCollection);
+        self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
         }
@@ -75,54 +68,30 @@ export class View {
             elem.removeChild(elem.firstChild);
         }
     }
-    _addCloseSymbol(checkbox,newLi) {
-        var newSpan = document.createElement('span');
-        var txt = document.createTextNode('\u00D7');
-        newSpan.appendChild(txt);
-        newLi.appendChild(newSpan);
-
-        this.idUl.appendChild(newLi);
-
-        newSpan.onclick	= function	() {
-            var idTask = newLi.getAttribute('data-id');
-            alert('Удаляем задачу под номером...'+idTask);
-            self.onTaskRemove(idTask);
-        };
-    }
 
     _addListTask(taskCollection) {
         var tasks = taskCollection._getTasks();
-
-
-        tasks.forEach(function (item) {
-            var newLi = document.createElement('li');
-            newLi.setAttribute('data-id', item.id);
-            let checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = item.done;
-
-            checkbox.onclick = function () {
-                var idTask = Number(this.parentNode.getAttribute('data-id'));
-                var done = this.checked;
-                self.onTaskCheck(idTask,done);
-            };
-            newLi.innerHTML =item.name;
-            newLi.appendChild(checkbox);
-
-            newLi.ondblclick = function () {
-                var tmpId = this.getAttribute('data-id');
-                var tmpText = this.firstChild.data;
-                self._addEdit(tmpText,tmpId);
-            };
-            self._addCloseSymbol(checkbox,newLi);
-        });
-
+        var list = tasks.reduce((a,item) =>
+        a +`<li data-id='${item.id}'><span>${item.name}</span><input type='checkbox'><span>&#215</span></li>\n`,'');
+        self.idUl.innerHTML = list;
+    }
+    _addEventElem() {
+        var liCollection = qsa('li[data-id]');
+        for (let i=0; i<liCollection.length; i++) {
+            $on(liCollection[i].childNodes[0],'dblclick',self.editTask);
+            $on(liCollection[i].childNodes[1],'click',self.checkTask);
+            $on(liCollection[i].childNodes[2],'click',self.deleteTask);
+        }
+    }
+    editTask() {
+        console.log('Редактирование задачи');
+    }
+    checkTask() {
+        console.log('Выполнение/невыполнение задачи');
+    }
+    deleteTask() {
+        console.log('Удаление задачи');
     }
 
-    _addCheckTask(newLi) {
-        var checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        newLi.appendChild(checkbox);
-    }
 }
 

@@ -53,19 +53,11 @@ export class View {
 
     }
 
-    display(taskCollection) {
-        self._clearListTask();
+    display(taskCollection) {        
         self._addListTask(taskCollection);
         self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
-        }
-    }
-
-    _clearListTask() {
-        var elem = this.idUl;
-        while (elem.firstChild) {
-            elem.removeChild(elem.firstChild);
         }
     }
 

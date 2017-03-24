@@ -2,7 +2,8 @@ import {qs,qsa,$on,} from './helpers';
 
 export class View {
 
-    constructor(idField,idButton,idUl,idButtonClear) {
+    constructor(template, idField,idButton,idUl,idButtonClear) {
+        this.template = template;
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
@@ -64,20 +65,12 @@ export class View {
     _addListTask(taskCollection) {
         console.log(taskCollection);
         let tasks = taskCollection._getTasks();
-        let list = tasks.reduce(function (a,item) {
-            let check = '';
-            if (item.done) {
-                check = 'checked';
-            }
-            return a +
-            `<li data-id='${item.id}'><span>${item.name}</span>
-            <input type='checkbox' ${check}><span>&#215</span></li>\n`;
-        },'');
+        let list = this.template.taskList(tasks);
         self.idUl.innerHTML = list;
     }
     _addEventElem() {
         var liColl = qsa('li[data-id]');
-        
+
         for (let i=0; i<liColl.length; i++) {
             $on(liColl[i].childNodes[0],'dblclick',self.editTask);
             $on(liColl[i].childNodes[2],'click',self._checkTask);

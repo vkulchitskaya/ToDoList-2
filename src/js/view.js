@@ -55,19 +55,13 @@ export class View {
     }
 
     display(taskCollection) {
-        self._addListTask(taskCollection);
+        self.idUl.innerHTML = this.template.taskList(taskCollection._getTasks());
         self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
 
-    _addListTask(taskCollection) {
-        console.log(taskCollection);
-        let tasks = taskCollection._getTasks();
-        let list = this.template.taskList(tasks);
-        self.idUl.innerHTML = list;
-    }
     _addEventElem() {
         var liColl = qsa('li[data-id]');
 

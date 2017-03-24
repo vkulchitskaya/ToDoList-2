@@ -3,8 +3,6 @@ export class Template {
 
     taskList(tasks) {
 
-        console.log(tasks);
-
         return tasks.reduce((a,item) => a + `
             
             <li data-id='${item.id}'>

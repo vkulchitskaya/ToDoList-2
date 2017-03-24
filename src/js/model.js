@@ -14,24 +14,18 @@ export class TaskCollection {
         this._taskCollection = tasks;
     }
 
+    _nextId() {
+        return this._taskCollection.reduce((prev, cur) => {
+            return (prev.id > cur.id) ? prev : cur;
+        }, new Task('', 0, false)).id + 1;
+    }
+
     serialize() {
         return JSON.stringify(this._taskCollection);
     }
 
     addTask(task) {
-
-        let maxIdTask = 0;
-        if (this._taskCollection !== []) {
-            this._taskCollection.forEach(function (item) {
-                if (item.id>maxIdTask) {
-                    maxIdTask=item.id;
-                }
-            });
-            maxIdTask++;
-            task.id = maxIdTask;
-        }		else {
-            task.id =1;
-        }
+        task.id = this._nextId();
         this._taskCollection.push(task);
     }
 

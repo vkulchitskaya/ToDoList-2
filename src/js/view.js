@@ -53,7 +53,7 @@ export class View {
 
     }
 
-    display(taskCollection) {        
+    display(taskCollection) {
         self._addListTask(taskCollection);
         self._addEventElem();
         if (this.idField!==undefined) {
@@ -77,18 +77,18 @@ export class View {
     }
     _addEventElem() {
         var liColl = qsa('li[data-id]');
+        
         for (let i=0; i<liColl.length; i++) {
             $on(liColl[i].childNodes[0],'dblclick',self.editTask);
-            $on(liColl[i].childNodes[1],'click',self._checkTask);
-            $on(liColl[i].childNodes[2],'click',self._deleteTask);
-
+            $on(liColl[i].childNodes[2],'click',self._checkTask);
+            $on(liColl[i].childNodes[3],'click',self._deleteTask);
         }
     }
     editTask() {
         console.log('Редактирование задачи');
     }
     _checkTask(event) {
-        let currLi = _getCurrentNode(event);
+        let currLi = self._getCurrentNode(event);
         let id = currLi.getAttribute('data-id');
         let done = currLi.childNodes[1].checked;
         self.onTaskCheck(id,done);

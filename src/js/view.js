@@ -85,24 +85,30 @@ export class View {
         var liColl = qsa('li[data-id]');
         for (let i=0; i<liColl.length; i++) {
             $on(liColl[i].childNodes[0],'dblclick',self.editTask);
-            $on(liColl[i].childNodes[1],'click',self.checkTask);
-            $on(liColl[i].childNodes[2],'click',self.deleteTask);
+            $on(liColl[i].childNodes[1],'click',self._checkTask);
+            $on(liColl[i].childNodes[2],'click',self._deleteTask);
 
         }
     }
     editTask() {
         console.log('Редактирование задачи');
     }
-    checkTask(event) {
-        event = event || window.event;
-        let currLi = event.target.parentNode;
+    _checkTask(event) {
+        let currLi = _getCurrentNode(event);
         let id = currLi.getAttribute('data-id');
         let done = currLi.childNodes[1].checked;
         self.onTaskCheck(id,done);
     }
-    deleteTask() {
-        console.log('Удаление задачи');
+    _deleteTask() {
+        let currLi = self._getCurrentNode(event);
+        let id = currLi.getAttribute('data-id');
+        self.onTaskRemove(id);
     }
+    _getCurrentNode(event) {
+        event = event || window.event;
+        return event.target.parentNode;
+    }
+
 
 }
 

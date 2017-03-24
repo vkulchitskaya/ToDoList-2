@@ -21,8 +21,7 @@ export class Storage {
 
     constructor() {
         this.version = 0;
-        this.taskCollection = new TaskCollection();
-        this.loadCollection();
+        this.taskCollection = this.loadCollection();        
     }
 
     rewriteCollection() {
@@ -56,9 +55,7 @@ export class Storage {
             set(COLLECTION_VERSION, this.version);
         }
 
-        this.taskCollection = new TaskCollection(result);
-
-        return result;
+        return new TaskCollection(result);
     }
 
     addTask(task) {

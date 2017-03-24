@@ -46,11 +46,10 @@ export class TaskCollection {
 
     setTaskDone(id,done) {
         this.taskCollection.forEach(function (item) {
-            if (item.id === id) {
+            if (item.id === Number(id)) {
                 item.done=done;
             }
         });
-        console.log(this.taskCollection);
     }
 
     _getTasks() {

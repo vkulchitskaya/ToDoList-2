@@ -70,24 +70,35 @@ export class View {
     }
 
     _addListTask(taskCollection) {
-        var tasks = taskCollection._getTasks();
-        var list = tasks.reduce((a,item) =>
-        a +`<li data-id='${item.id}'><span>${item.name}</span><input type='checkbox'><span>&#215</span></li>\n`,'');
+        console.log(taskCollection);
+        let tasks = taskCollection._getTasks();
+        let list = tasks.reduce(function (a,item) {
+            let check = '';
+            if (item.done) {
+                check = 'checked';
+            }
+            return a +`<li data-id='${item.id}'><span>${item.name}</span><input type='checkbox' ${check}><span>&#215</span></li>\n`;
+        },'');
         self.idUl.innerHTML = list;
     }
     _addEventElem() {
-        var liCollection = qsa('li[data-id]');
-        for (let i=0; i<liCollection.length; i++) {
-            $on(liCollection[i].childNodes[0],'dblclick',self.editTask);
-            $on(liCollection[i].childNodes[1],'click',self.checkTask);
-            $on(liCollection[i].childNodes[2],'click',self.deleteTask);
+        var liColl = qsa('li[data-id]');
+        for (let i=0; i<liColl.length; i++) {
+            $on(liColl[i].childNodes[0],'dblclick',self.editTask);
+            $on(liColl[i].childNodes[1],'click',self.checkTask);
+            $on(liColl[i].childNodes[2],'click',self.deleteTask);
+
         }
     }
     editTask() {
         console.log('Редактирование задачи');
     }
-    checkTask() {
-        console.log('Выполнение/невыполнение задачи');
+    checkTask(event) {
+        event = event || window.event;
+        let currLi = event.target.parentNode;
+        let id = currLi.getAttribute('data-id');
+        let done = currLi.childNodes[1].checked;
+        self.onTaskCheck(id,done);
     }
     deleteTask() {
         console.log('Удаление задачи');

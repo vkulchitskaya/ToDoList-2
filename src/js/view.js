@@ -77,7 +77,9 @@ export class View {
             if (item.done) {
                 check = 'checked';
             }
-            return a +`<li data-id='${item.id}'><span>${item.name}</span><input type='checkbox' ${check}><span>&#215</span></li>\n`;
+            return a +
+            `<li data-id='${item.id}'><span>${item.name}</span>
+            <input type='checkbox' ${check}><span>&#215</span></li>\n`;
         },'');
         self.idUl.innerHTML = list;
     }

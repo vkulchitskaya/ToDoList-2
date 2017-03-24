@@ -28,7 +28,7 @@ export class Storage {
     rewriteCollection() {
 
         this.version++;
-        set(COLLECTION, JSON.stringify(this.taskCollection.taskCollection));
+        set(COLLECTION, this.taskCollection.serialize());
         set(COLLECTION_VERSION, this.version);
     }
 
@@ -56,7 +56,7 @@ export class Storage {
             set(COLLECTION_VERSION, this.version);
         }
 
-        this.taskCollection.taskCollection = result;
+        this.taskCollection = new TaskCollection(result);
 
         return result;
     }

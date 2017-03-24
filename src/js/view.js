@@ -1,4 +1,4 @@
-import {qs,qsa,$on,} from './helpers';
+import {qs,qsa,$on,$delegate,} from './helpers';
 
 export class View {
 
@@ -8,6 +8,10 @@ export class View {
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
+
+        $delegate(this.idUl, 'li span', 'dblclick', ({target,}) => {     // no-comma-dangle
+            this.editTask(target);
+        });
 
         self=this;
 
@@ -56,24 +60,27 @@ export class View {
 
     display(taskCollection) {
         self.idUl.innerHTML = this.template.taskList(taskCollection._getTasks());
-        self._addEventElem();
+        // self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
 
-    _addEventElem() {
-        var liColl = qsa('li[data-id]');
+    // _addEventElem() {
+    //    var liColl = qsa('li[data-id]');
+    //
+    //    for (let i=0; i<liColl.length; i++) {
+    //        $on(liColl[i].childNodes[0],'dblclick',self.editTask);
+    //        $on(liColl[i].childNodes[2],'click',self._checkTask);
+    //        $on(liColl[i].childNodes[3],'click',self._deleteTask);
+    //    }
+    // }
 
-        for (let i=0; i<liColl.length; i++) {
-            $on(liColl[i].childNodes[0],'dblclick',self.editTask);
-            $on(liColl[i].childNodes[2],'click',self._checkTask);
-            $on(liColl[i].childNodes[3],'click',self._deleteTask);
-        }
-    }
-    editTask() {
+    editTask(target) {
         console.log('Редактирование задачи');
+        console.log(target);
     }
+
     _checkTask(event) {
         let currLi = self._getCurrentNode(event);
         let id = currLi.getAttribute('data-id');

@@ -1,3 +1,4 @@
+import {Template,} from './template';
 import {View,} from './view';
 import {TaskCollection,} from './model';
 import {Controller,} from './controller';
@@ -7,7 +8,8 @@ import {$on,} from './helpers';
 $on(window, 'load', () => {
 
     const storage = new Storage();
-    const view = new View('#taskTittle','#addButton','#listTask','#clearButton');
+    const template = new Template();
+    const view = new View(template, '#taskTittle','#addButton','#listTask','#clearButton');
     const controller = new Controller(view, storage);
     const setView = () => view.display(storage.taskCollection);
 

@@ -1,12 +1,20 @@
-import {qs,qsa,$on,} from './helpers';
+import {qs,qsa,$on,$delegate,} from './helpers';
 
 export class View {
 
-    constructor(idField,idButton,idUl,idButtonClear) {
+    constructor(template, idField,idButton,idUl,idButtonClear) {
+        this.template = template;
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
+
+        $delegate(this.idUl, 'li span', 'dblclick', ({target,}) => {     // no-comma-dangle
+            this.editTask(target);
+        });
+        $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {     // no-comma-dangle
+            this._checkTask(target);
+        });
 
         self=this;
 
@@ -54,49 +62,32 @@ export class View {
     }
 
     display(taskCollection) {
-        self._clearListTask();
-        self._addListTask(taskCollection);
-        self._addEventElem();
+        console.log(taskCollection);
+        self.idUl.innerHTML = this.template.taskList(taskCollection._getTasks());
+        // self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
 
-    _clearListTask() {
-        var elem = this.idUl;
-        while (elem.firstChild) {
-            elem.removeChild(elem.firstChild);
-        }
-    }
+    // _addEventElem() {
+    //    var liColl = qsa('li[data-id]');
+    //
+    //    for (let i=0; i<liColl.length; i++) {
+    //        $on(liColl[i].childNodes[0],'dblclick',self.editTask);
+    //        $on(liColl[i].childNodes[2],'click',self._checkTask);
+    //        $on(liColl[i].childNodes[3],'click',self._deleteTask);
+    //    }
+    // }
 
-    _addListTask(taskCollection) {
-        console.log(taskCollection);
-        let tasks = taskCollection._getTasks();
-        let list = tasks.reduce(function (a,item) {
-            let check = '';
-            if (item.done) {
-                check = 'checked';
-            }
-            return a +`<li data-id='${item.id}'><span>${item.name}</span><input type='checkbox' ${check}><span>&#215</span></li>\n`;
-        },'');
-        self.idUl.innerHTML = list;
-    }
-    _addEventElem() {
-        var liColl = qsa('li[data-id]');
-        for (let i=0; i<liColl.length; i++) {
-            $on(liColl[i].childNodes[0],'dblclick',self.editTask);
-            $on(liColl[i].childNodes[1],'click',self._checkTask);
-            $on(liColl[i].childNodes[2],'click',self._deleteTask);
-
-        }
-    }
-    editTask() {
+    editTask(target) {
         console.log('Редактирование задачи');
+        console.log(target);
     }
-    _checkTask(event) {
-        let currLi = _getCurrentNode(event);
-        let id = currLi.getAttribute('data-id');
-        let done = currLi.childNodes[1].checked;
+
+    _checkTask(target) {
+        let id = target.parentNode.getAttribute('data-id');
+        let done = target.checked;
         self.onTaskCheck(id,done);
     }
     _deleteTask() {

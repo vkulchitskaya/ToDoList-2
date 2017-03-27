@@ -24,6 +24,7 @@ export class Controller {
     onTaskEdit(name,id) {
         this.storage.editTask(id,name);
         this.view.display(this.storage.taskCollection);
+        console.log(this.storage.taskCollection);
     }
 
     onTaskCheck(id,done) {

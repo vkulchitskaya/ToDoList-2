@@ -12,6 +12,7 @@ export class View {
         $delegate(this.idUl, 'li span', 'dblclick', ({target,}) => {     // no-comma-dangle
             this.editTask(target);
         });
+
         $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {     // no-comma-dangle
             this._checkTask(target);
         });
@@ -62,7 +63,6 @@ export class View {
     }
 
     display(taskCollection) {
-        console.log(taskCollection);
         self.idUl.innerHTML = this.template.taskList(taskCollection._getTasks());
         // self._addEventElem();
         if (this.idField!==undefined) {
@@ -84,6 +84,7 @@ export class View {
         console.log('Редактирование задачи');
         console.log(target);
     }
+
 
     _checkTask(target) {
         let id = target.parentNode.getAttribute('data-id');

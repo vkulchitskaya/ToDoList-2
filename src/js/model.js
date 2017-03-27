@@ -20,10 +20,6 @@ export class TaskCollection {
         }, new Task('', 0, false)).id + 1;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 543690081ff3bcb5608fd4528695547402548a6b
     serialize() {
         return JSON.stringify(this._taskCollection);
     }

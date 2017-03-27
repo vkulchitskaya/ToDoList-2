@@ -1,7 +1,14 @@
 
-export default class Template {
+export class Template {
 
-    itemList(items) {
-        return 1;
+    taskList(tasks) {
+
+        return tasks.reduce((a,item) => a + `
+            
+            <li data-id='${item.id}'>
+                <span>${item.name}</span>
+                <input type='checkbox' ${item.done ? 'checked' : ''}>
+                <span>&#215</span>
+            </li>`, '');
     }
 }

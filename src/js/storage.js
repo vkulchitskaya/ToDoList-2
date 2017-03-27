@@ -21,14 +21,13 @@ export class Storage {
 
     constructor() {
         this.version = 0;
-        this.taskCollection = new TaskCollection();
-        this.loadCollection();
+        this.taskCollection = this.loadCollection();
     }
 
     rewriteCollection() {
 
         this.version++;
-        set(COLLECTION, JSON.stringify(this.taskCollection.taskCollection));
+        set(COLLECTION, this.taskCollection.serialize());
         set(COLLECTION_VERSION, this.version);
     }
 
@@ -56,9 +55,7 @@ export class Storage {
             set(COLLECTION_VERSION, this.version);
         }
 
-        this.taskCollection.taskCollection = result;
-
-        return result;
+        return new TaskCollection(result);
     }
 
     addTask(task) {

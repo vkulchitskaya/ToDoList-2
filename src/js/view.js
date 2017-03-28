@@ -9,12 +9,15 @@ export class View {
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
 
-        $delegate(this.idUl, 'li span', 'dblclick', ({target,}) => {     // no-comma-dangle
-            this.editTask(target);
+        $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {     // no-comma-dangle
+            this._editTask(target);
         });
 
         $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {     // no-comma-dangle
             this._checkTask(target);
+        });
+        $delegate(this.idUl, 'span.close', 'click', ({target,}) => {     // no-comma-dangle
+            this._deleteTask(target);
         });
 
         self=this;
@@ -80,7 +83,7 @@ export class View {
     //    }
     // }
 
-    editTask(target) {
+    _editTask(target) {
         console.log('Редактирование задачи');
         console.log(target);
     }
@@ -91,9 +94,9 @@ export class View {
         let done = target.checked;
         self.onTaskCheck(id,done);
     }
-    _deleteTask() {
-        let currLi = self._getCurrentNode(event);
-        let id = currLi.getAttribute('data-id');
+    _deleteTask(target) {
+        let id = target.parentNode.getAttribute('data-id');
+        console.log('Удаляем задачу id =',id);
         self.onTaskRemove(id);
     }
     _getCurrentNode(event) {

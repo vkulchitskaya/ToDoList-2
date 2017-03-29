@@ -14,17 +14,17 @@ export class View {
             this._editTask(target);
         });
 
-        $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {
+        $delegate(this.idUl, 'input.check', 'click', ({target,}) => {
             this._checkTask(target);
         });
         $delegate(this.idUl, 'span.close', 'click', ({target,}) => {
             this._deleteTask(target);
         });
 
-       /* $delegate(this.filter, '#filter', 'click', ({target,}) => {
-            alert('sdfhjskjd');
-            this._showTaskDone(target);
-        });*/
+        /* не понимаю, почему при нажатии на checkbox не вызыватеся console.log(); */
+        $delegate(this.filter, 'input.showDone', 'click', ({target,}) => {
+            console.log(this.filter);
+        });
 
         self=this;
 
@@ -84,7 +84,6 @@ export class View {
     }
     _deleteTask(target) {
         let id = self._getTaskId(target);
-        console.log('Удаляем задачу id =',id);
         self.onTaskRemove(id);
     }
     _getCurrentNode(event) {

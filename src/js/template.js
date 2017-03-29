@@ -7,7 +7,7 @@ export class Template {
             
             <li data-id='${item.id}'>
                 <span class='task'>${item.name}</span>
-                <input type='checkbox' ${item.done ? 'checked' : ''}>
+                <input class='check' type='checkbox' ${item.done ? 'checked' : ''}>
                 <span class='close'>&#215</span>
             </li>`, '');
     }

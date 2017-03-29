@@ -9,6 +9,7 @@ export class Controller {
         this.view.bindTaskRemove(this.onTaskRemove.bind(this));
         this.view.bindTaskEdit(this.onTaskEdit.bind(this));
         this.view.bindTaskCheck(this.onTaskCheck.bind(this));
+        /* this.view.bindTaskFilter(this.onTaskFilter.bind(this));*/
     }
 
     onTaskCreated(name) {
@@ -24,12 +25,16 @@ export class Controller {
     onTaskEdit(name,id) {
         this.storage.editTask(id,name);
         this.view.display(this.storage.taskCollection);
-        console.log(this.storage.taskCollection);
     }
 
     onTaskCheck(id,done) {
         this.storage.setTaskDone(id,done);
     }
+
+    /* onTaskFilter() {
+        console.log('mkml');
+        this.view.display(this.storage.getTaskDone());
+    }*/
 
 }
 

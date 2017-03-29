@@ -34,6 +34,12 @@ export class TaskCollection {
             return	v.id !== parseInt(id);
         });
     }
+    _getTaskDone() {
+        let taskCollectionDone = this._taskCollection.filter(function (v) {
+            return	v.done === true;
+        });
+        return taskCollectionDone;
+    }
 
     editTask(id,newName) {
         this._taskCollection.forEach(function (item) {

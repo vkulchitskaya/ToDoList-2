@@ -2,23 +2,29 @@ import {qs,qsa,$on,$delegate,} from './helpers';
 
 export class View {
 
-    constructor(template, idField,idButton,idUl,idButtonClear) {
+    constructor(template, idField,idButton,idUl,idButtonClear,filter) {
         this.template = template;
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
+        this.filter = qs(filter);
 
         $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {     // no-comma-dangle
             this._editTask(target);
         });
 
-        $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {     // no-comma-dangle
+        $delegate(this.idUl, 'input[type="checkbox"]', 'click', ({target,}) => {
             this._checkTask(target);
         });
-        $delegate(this.idUl, 'span.close', 'click', ({target,}) => {     // no-comma-dangle
+        $delegate(this.idUl, 'span.close', 'click', ({target,}) => {
             this._deleteTask(target);
         });
+
+       /* $delegate(this.filter, '#filter', 'click', ({target,}) => {
+            alert('sdfhjskjd');
+            this._showTaskDone(target);
+        });*/
 
         self=this;
 
@@ -47,55 +53,37 @@ export class View {
         this.onTaskCheck = handler;
     }
 
+    /* bindTaskFilter(handler) {
+        this.onTaskFilter = handler;
+    }*/
+
     _getValue() {
         return this.idField.value;
     }
 
-    _addEdit(tmpText,id) {
-        var elem = self.idUl;
-        var newLi = document.createElement('li');
-        var edit = document.createElement('input');
-        edit.setAttribute('value',tmpText);
-        newLi.appendChild(edit);
-        elem.appendChild(newLi);
-        elem.lastChild.firstChild.focus();
-        edit.onblur =() => {
-            self.onTaskEdit(edit.value,id);
-        };
-
-    }
-
     display(taskCollection) {
         self.idUl.innerHTML = this.template.taskList(taskCollection._getTasks());
-        // self._addEventElem();
         if (this.idField!==undefined) {
             this.idField.value='';
         }
     }
 
-    // _addEventElem() {
-    //    var liColl = qsa('li[data-id]');
-    //
-    //    for (let i=0; i<liColl.length; i++) {
-    //        $on(liColl[i].childNodes[0],'dblclick',self.editTask);
-    //        $on(liColl[i].childNodes[2],'click',self._checkTask);
-    //        $on(liColl[i].childNodes[3],'click',self._deleteTask);
-    //    }
-    // }
-
     _editTask(target) {
-        console.log('Редактирование задачи');
-        console.log(target);
+        target.innerHTML = `<input class='edit' value='${target.textContent}'>`;
+        let edit = qs('input.edit');
+        let id = self._getTaskId(target);
+        edit.focus();
+        edit.onblur =() => {
+            self.onTaskEdit(edit.value,id);
+        };
     }
-
-
     _checkTask(target) {
-        let id = target.parentNode.getAttribute('data-id');
+        let id = self._getTaskId(target);
         let done = target.checked;
         self.onTaskCheck(id,done);
     }
     _deleteTask(target) {
-        let id = target.parentNode.getAttribute('data-id');
+        let id = self._getTaskId(target);
         console.log('Удаляем задачу id =',id);
         self.onTaskRemove(id);
     }
@@ -103,6 +91,16 @@ export class View {
         event = event || window.event;
         return event.target.parentNode;
     }
+    _getTaskId(target) {
+        return target.parentNode.getAttribute('data-id');
+    }
+
+    /* _showTaskDone(event) {
+        console.log('я тут');
+       if (self.filter.checked) {
+            self.display(self.onTaskFilter);
+        }
+    }*/
 
 
 }

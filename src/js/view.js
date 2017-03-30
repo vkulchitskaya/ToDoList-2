@@ -10,7 +10,7 @@ export class View {
         this.idButtonClear=qs(idButtonClear);
         this.filter = qs(filter);
 
-        $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {     // no-comma-dangle
+        $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {
             this._editTask(target);
         });
 
@@ -21,9 +21,8 @@ export class View {
             this._deleteTask(target);
         });
 
-        /* не понимаю, почему при нажатии на checkbox не вызыватеся console.log(); */
-        $delegate(this.filter, 'input.showDone', 'click', ({target,}) => {
-            console.log(this.filter);
+        $on(this.filter,'click',()=>{
+            self._showTaskDone(this.filter.checked);
         });
 
         self=this;
@@ -53,9 +52,13 @@ export class View {
         this.onTaskCheck = handler;
     }
 
-    /* bindTaskFilter(handler) {
+    bindTaskFilter(handler) {
         this.onTaskFilter = handler;
-    }*/
+    }
+
+    _showTaskDone(check) {
+        self.onTaskFilter(check);
+    }
 
     _getValue() {
         return this.idField.value;
@@ -93,13 +96,6 @@ export class View {
     _getTaskId(target) {
         return target.parentNode.getAttribute('data-id');
     }
-
-    /* _showTaskDone(event) {
-        console.log('я тут');
-       if (self.filter.checked) {
-            self.display(self.onTaskFilter);
-        }
-    }*/
 
 
 }

@@ -1,4 +1,4 @@
-import {Task,} from './model';
+import {Task,TaskCollection,} from './model';
 
 export class Controller {
     constructor(view,storage) {
@@ -9,7 +9,7 @@ export class Controller {
         this.view.bindTaskRemove(this.onTaskRemove.bind(this));
         this.view.bindTaskEdit(this.onTaskEdit.bind(this));
         this.view.bindTaskCheck(this.onTaskCheck.bind(this));
-        /* this.view.bindTaskFilter(this.onTaskFilter.bind(this));*/
+        this.view.bindTaskFilter(this.onTaskFilter.bind(this));
     }
 
     onTaskCreated(name) {
@@ -31,10 +31,14 @@ export class Controller {
         this.storage.setTaskDone(id,done);
     }
 
-    /* onTaskFilter() {
-        console.log('mkml');
-        this.view.display(this.storage.getTaskDone());
-    }*/
+    onTaskFilter(check) {
+        let tasksDone = this.storage.getTaskDone();
+        if (check & tasksDone !== []) {
+            this.view.display(new TaskCollection(tasksDone));
+        } else {
+            this.view.display(this.storage.taskCollection);
+        }
+    }
 
 }
 

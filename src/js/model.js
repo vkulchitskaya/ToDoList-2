@@ -34,7 +34,7 @@ export class TaskCollection {
             return	v.id !== parseInt(id);
         });
     }
-    _getTaskDone() {
+    getTaskDone() {
         let taskCollectionDone = this._taskCollection.filter(function (v) {
             return	v.done === true;
         });

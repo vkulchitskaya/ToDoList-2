@@ -37,12 +37,14 @@ export class View {
     bindTaskCreated(handler) {
 
         $on(this.$newTaskButton, 'click', () => {
-            handler(this.idField.value);
+            if (this.idField.value !== '') {
+                handler(this.idField.value);
+            }
         });
 
         $on(this.idField,'keydown',()=>{
             event = event || window.event;
-            if (event.keyCode === 13) {
+            if (event.keyCode === 13 & this.idField.value !== '') {
                 handler(this.idField.value);
             }
         });

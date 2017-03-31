@@ -2,13 +2,14 @@ import {qs,qsa,$on,$delegate,} from './helpers';
 
 export class View {
 
-    constructor(template, idField,idButton,idUl,idButtonClear,filter) {
+    constructor(template, idField,idButton,idUl,idButtonClear,filter,form) {
         this.template = template;
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
         this.idButtonClear=qs(idButtonClear);
         this.filter = qs(filter);
+        this.form = qs(form);
 
         $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {
             this._editTask(target);
@@ -38,6 +39,14 @@ export class View {
         $on(this.$newTaskButton, 'click', () => {
             handler(this.idField.value);
         });
+
+        $on(this.idField,'keydown',()=>{
+            event = event || window.event;
+            if (event.keyCode === 13) {
+                handler(this.idField.value);
+            }
+        });
+
     }
 
     bindTaskRemove(handler) {
@@ -88,10 +97,6 @@ export class View {
     _deleteTask(target) {
         let id = self._getTaskId(target);
         self.onTaskRemove(id);
-    }
-    _getCurrentNode(event) {
-        event = event || window.event;
-        return event.target.parentNode;
     }
     _getTaskId(target) {
         return target.parentNode.getAttribute('data-id');

@@ -55,7 +55,6 @@ export class TaskCollection {
                 item.done=done;
             }
         });
-        console.log(this._taskCollection);
     }
 
     _getTasks() {

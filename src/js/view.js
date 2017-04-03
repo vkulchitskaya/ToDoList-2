@@ -2,14 +2,14 @@ import {qs,qsa,$on,$delegate,} from './helpers';
 
 export class View {
 
-    constructor(template, idField,idButton,idUl,idButtonClear,filter,form) {
+    constructor(template, idField,idButton,idUl,/* idButtonClear, */filter) {
         this.template = template;
         this.idField=qs(idField);
         this.$newTaskButton=qs(idButton);
         this.idUl= qs(idUl);
-        this.idButtonClear=qs(idButtonClear);
+        /* this.idButtonClear=qs(idButtonClear); */
         this.filter = qs(filter);
-        this.form = qs(form);
+
 
         $delegate(this.idUl, 'span.task', 'dblclick', ({target,}) => {
             this._editTask(target);
@@ -28,17 +28,19 @@ export class View {
 
         self=this;
 
-        $on(this.idButtonClear, 'click', () => {
+        /* $on(this.idButtonClear, 'click', () => {
             localStorage.clear();
             location.reload();
-        });
+        });*/
     }
 
     bindTaskCreated(handler) {
 
         $on(this.$newTaskButton, 'click', () => {
             if (this.idField.value !== '') {
-                handler(this.idField.value);
+                let strFormat = self._replaceSym(this.idField.value);
+                console.log(strFormat);
+                handler(strFormat);
             }
         });
 
@@ -90,6 +92,12 @@ export class View {
         edit.onblur =() => {
             self.onTaskEdit(edit.value,id);
         };
+        $on(edit,'keydown',()=>{
+            event = event || window.event;
+            if (event.keyCode === 13) {
+                self.onTaskEdit(edit.value,id);
+            }
+        });
     }
     _checkTask(target) {
         let id = self._getTaskId(target);
@@ -102,6 +110,11 @@ export class View {
     }
     _getTaskId(target) {
         return target.parentNode.getAttribute('data-id');
+    }
+    _replaceSym(str) {
+        str = str.replace(/</g,'&lt;');
+        str = str.replace(/>/g,'&gt;');
+        return str;
     }
 
 

@@ -26,6 +26,7 @@ gulp.task('lint', function () {
 gulp.task('webpack:build', function (callback) {
     webpack(webpackConfig).run(onBuild(callback));
     copyhtml();
+    copycss();
 });
 
 gulp.task('webpack-dev-server', function (callback) {
@@ -34,6 +35,7 @@ gulp.task('webpack-dev-server', function (callback) {
     var myConfig = Object.create(webpackConfig);
     myConfig.devtool = 'inline-source-map';
     copyhtml();
+    copycss();
 
     // Start a webpack-dev-server
     new WebpackDevServer(webpack(myConfig), {
@@ -70,5 +72,10 @@ function onBuild(callback) {
 
 function copyhtml() {
     gulp.src('src/index.html')
+        .pipe(gulp.dest('build'));
+}
+
+function copycss() {
+    gulp.src('src/style.css')
         .pipe(gulp.dest('build'));
 }

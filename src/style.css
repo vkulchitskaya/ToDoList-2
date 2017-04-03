@@ -1,0 +1,123 @@
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    position: relative;
+    padding: 15px 8px 15px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+ul li:hover {
+    background: #ddd;
+}
+
+ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+}
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px 16px 15px 16px
+}
+
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+#addButton {
+    padding: 10px;
+    width: 15%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
+
+}
+
+#addButton:hover {
+    background-color: #bbb;
+}
+
+
+.header {
+    background-color: #f44336;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+}
+
+
+.header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.filter {
+    background-color: #f44336;
+    padding: 10px 60px;
+    color: white;
+    text-align: right;
+    margin-bottom:10px;
+}
+
+
+#taskTittle {
+    border: none;
+    width: 80%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+
+input.check{
+    float:left;
+    width:16px;
+    height:16px;
+    margin-right:10px;
+    position: relative;
+
+}
+
+span.showDone{
+    font-size: 18px;
+    color:white;
+    text-align: right;
+}
+
+input.showDone{
+    width:16px;
+    height:16px;
+    margin-right:5px;
+    position: relative;
+    top:2px;
+}
+
+.edit{
+    /*padding: 5px;*/
+    margin:0px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    font-family: 'Times New Roman', Times, serif;
+}
+

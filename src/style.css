@@ -7,9 +7,11 @@ ul li {
     position: relative;
     padding: 15px 8px 15px 40px;
     background: #eee;
-    font-size: 18px;
+    font-size: 1.1em;
     transition: 0.2s;
     font-family: 'Times New Roman', Times, serif;
+    word-wrap: break-word;
+    list-style-type: none;
 }
 
 ul li:nth-child(odd) {
@@ -47,8 +49,9 @@ a{
     color: #555;
     float: left;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.1em;
     transition: 0.3s;
+    min-width:30px;
 
 }
 
@@ -62,6 +65,8 @@ a{
     padding: 30px 40px;
     color: white;
     text-align: center;
+
+
 }
 
 
@@ -76,10 +81,11 @@ a{
 
 #taskTittle {
     border: none;
-    width: 80%;
+    width: 70%;
     padding: 10px;
     float: left;
     font-size: 18px;
+
 }
 
 input.check{
@@ -92,7 +98,7 @@ input.check{
 }
 
 span.showDone{
-    font-size: 18px;
+    font-size: 1.1em;
     color:white;
     text-align: right;
 }
@@ -108,7 +114,7 @@ input.showDone{
 .edit{
     margin:0px;
     background: #eee;
-    font-size: 18px;
+    font-size: 1.1em;
     transition: 0.2s;
     font-family: 'Times New Roman', Times, serif;
 }

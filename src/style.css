@@ -12,7 +12,6 @@ ul li {
     font-family: 'Times New Roman', Times, serif;
 }
 
-/* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child(odd) {
     background: #f9f9f9;
 }
@@ -48,7 +47,7 @@ a{
     color: #555;
     float: left;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     transition: 0.3s;
 
 }
@@ -66,15 +65,9 @@ a{
 }
 
 
-.header:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 .filter {
     background-color: #f44336;
-    padding: 10px 60px;
+    padding: 20px 60px 10px 60px;
     color: white;
     text-align: right;
     margin-bottom:10px;
@@ -86,7 +79,7 @@ a{
     width: 80%;
     padding: 10px;
     float: left;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 input.check{
@@ -113,7 +106,6 @@ input.showDone{
 }
 
 .edit{
-    /*padding: 5px;*/
     margin:0px;
     background: #eee;
     font-size: 18px;

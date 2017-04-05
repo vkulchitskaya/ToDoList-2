@@ -8,6 +8,12 @@ body{
 a{
     text-decoration: none;
 }
+
+.wrapper{
+    max-width:70%;
+    min-width:160px;
+}
+
 ul {
     margin: 0;
     padding: 0;
@@ -59,16 +65,15 @@ input.check{
     background-color: #1c7dad;
     color: white;
     text-align: center;
-    
+    padding:2em 2em 3em 2em;    
 }
 
 #taskTittle {
     border: none;
     width: 70%;
     padding:10px 0px 10px 10px;
-margin-bottom:10px;
-min-width:60px;
-
+    margin-bottom:10px;
+    min-width:60px;
 }
 
 #addButton {
@@ -80,21 +85,17 @@ min-width:60px;
     width:26%;
     padding:10px 0px;
     min-width:30px;
-
 }
 
 #addButton:hover {
     background-color: #bbb;
 }
 
-
 .filter {
     background-color: #1c7dad;
     color: white;
     text-align:right;
-padding:5px 10px 10px 0px;;
-  
-
+    padding:15px 10px 10px 10px;;
 }
 
 span.showDone{
@@ -114,19 +115,9 @@ input.showDone{
     transition: 0.2s;
 }
 
-.wrapper{
-    max-width:70%;
-    min-width:100px;
-}
-
 .input-line{
     height:30px;
     margin:auto;
     width:90%;
-
 }
 
-.header{
-    background: #1c7dad;
-    padding:2em 2em 5em 2em;
-}

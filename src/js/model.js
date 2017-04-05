@@ -36,7 +36,7 @@ export class TaskCollection {
     }
     getTaskDone() {
         let taskCollectionDone = this._taskCollection.filter(function (v) {
-            return	v.done === true;
+            return	v.done === false;
         });
         return taskCollectionDone;
     }

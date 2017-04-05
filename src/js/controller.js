@@ -33,7 +33,7 @@ export class Controller {
 
     onTaskFilter(check) {
         let tasksDone = this.storage.getTaskDone();
-        if (check & tasksDone !== []) {
+        if (!check & tasksDone !== []) {
             this.view.display(new TaskCollection(tasksDone));
         } else {
             this.view.display(this.storage.taskCollection);

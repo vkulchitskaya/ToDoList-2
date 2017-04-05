@@ -102,6 +102,9 @@ export class View {
     _checkTask(target) {
         let id = self._getTaskId(target);
         let done = target.checked;
+        if (done) {
+            target.parentNode.remove();
+        }
         self.onTaskCheck(id,done);
     }
     _deleteTask(target) {

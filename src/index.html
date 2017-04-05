@@ -1,27 +1,24 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-    <meta charset="utf-8">
-	<link href="style.css" rel="stylesheet">
-    <title>ToDoList</title>
-    <script src="build.js"></script>    
-    </head>
-<body>
-    <!--<a  id='clearButton' href=#>Reset</a>-->
-	<div class='wrapper'>
+	<head>
+		<meta charset="utf-8">
+		<link href="style.css" rel="stylesheet">
+		<title>ToDoList</title>
+		<script src="build.js"></script>    
+	</head>
+	<body>
+		<!--<a  id='clearButton' href=#>Reset</a>-->
+		<div class='wrapper'>
 			<div class='header'>
-  		    	<div class='input-line'>
-				  <input type='text' id='taskTittle' maxlength="255" size="40" value='' placeholder='Title...' >
-				<a  id='addButton' href=#>Add</a>
+				<div class='input-line'>
+					<input type='text' id='taskTittle' maxlength="255" size="40" value='' placeholder='Title...' >
+					<a  id='addButton' href=#>Add</a>
 				</div>
-        
-			</div>  
-		<ul id='listTask'></ul>
+			</div>
 			<div class='filter'>
-					<input id='filter' type='checkbox' class='showDone'><span class='showDone'>Show completed</span></input>
-				</div>	
-	</div>
-				
-       
-</body>
-</html> 
+				<input id='filter' type='checkbox' class='showDone' checked><span class='showDone'>Show completed</span></input>
+			</div>
+			<ul id='listTask'></ul>
+		</div>
+	</body>
+</html>

@@ -1,3 +1,11 @@
+body{
+    font-size:1em;
+    font-family:'Arial';
+}
+
+a{
+    text-decoration: none;
+}
 ul {
     margin: 0;
     padding: 0;
@@ -7,9 +15,7 @@ ul li {
     position: relative;
     padding: 15px 8px 15px 40px;
     background: #eee;
-    font-size: 1.1em;
     transition: 0.2s;
-    font-family: 'Times New Roman', Times, serif;
     word-wrap: break-word;
     list-style-type: none;
 }
@@ -35,23 +41,19 @@ ul li.checked {
 }
 
 .close:hover {
-    background-color: #f44336;
+    background-color: #f7837a;
     color: white;
 }
 
-a{
-    text-decoration: none;
-}
+
 #addButton {
     padding: 10px;
     width: 15%;
     background: #d9d9d9;
     color: #555;
     float: left;
-    text-align: center;
-    font-size: 1.1em;
     transition: 0.3s;
-    min-width:30px;
+
 
 }
 
@@ -61,7 +63,7 @@ a{
 
 
 .header {
-    background-color: #f44336;
+    background-color: #1c7dad;
     padding: 30px 40px;
     color: white;
     text-align: center;
@@ -71,7 +73,7 @@ a{
 
 
 .filter {
-    background-color: #f44336;
+    background-color: #1c7dad;
     padding: 20px 60px 10px 60px;
     color: white;
     text-align: right;
@@ -84,7 +86,6 @@ a{
     width: 70%;
     padding: 10px;
     float: left;
-    font-size: 1.1em;
 
 }
 
@@ -98,7 +99,6 @@ input.check{
 }
 
 span.showDone{
-    font-size: 1.1em;
     color:white;
     text-align: right;
 }
@@ -114,9 +114,7 @@ input.showDone{
 .edit{
     margin:0px;
     background: #eee;
-    font-size: 1.1em;
     transition: 0.2s;
-    font-family: 'Times New Roman', Times, serif;
 }
 
 .wrapper{

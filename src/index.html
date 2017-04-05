@@ -9,17 +9,19 @@
 <body>
     <!--<a  id='clearButton' href=#>Reset</a>-->
 	<div class='wrapper'>
-		<div class='conteiner'>
 			<div class='header'>
-  		    	<input type='text' id='taskTittle' maxlength="255" size="40" value='' placeholder='Title...' >
-				<a  id='addButton' href=#>Add</a>        
-			</div>
-			<div class='filter'>
-				<input id='filter' type='checkbox' class='showDone'><span class='showDone'>Show completed</span></input>
-			</div>
-		</div>	  
+  		    	<div class='input-line'>
+				  <input type='text' id='taskTittle' maxlength="255" size="40" value='' placeholder='Title...' >
+				<a  id='addButton' href=#>Add</a>
+				</div>
+        
+			</div>  
 		<ul id='listTask'></ul>
+			<div class='filter'>
+					<input id='filter' type='checkbox' class='showDone'><span class='showDone'>Show completed</span></input>
+				</div>	
 	</div>
+				
        
 </body>
 </html> 

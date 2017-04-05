@@ -1,6 +1,8 @@
 body{
-    font-size:1em;
+    font-size:0.8em;
     font-family:'Arial';
+    margin:0.5em;
+    padding:0;
 }
 
 a{
@@ -45,15 +47,39 @@ ul li.checked {
     color: white;
 }
 
+input.check{
+    float:left;
+    width:16px;
+    height:16px;
+    margin-right:10px;
+    position: relative;
+}
+
+.header {
+    background-color: #1c7dad;
+    color: white;
+    text-align: center;
+    
+}
+
+#taskTittle {
+    border: none;
+    width: 70%;
+    padding:10px 0px 10px 10px;
+margin-bottom:10px;
+min-width:60px;
+
+}
 
 #addButton {
-    padding: 10px;
-    width: 15%;
     background: #d9d9d9;
     color: #555;
-    float: left;
     transition: 0.3s;
-
+    display: inline-block;
+    height:50%;
+    width:26%;
+    padding:10px 0px;
+    min-width:30px;
 
 }
 
@@ -62,39 +88,12 @@ ul li.checked {
 }
 
 
-.header {
-    background-color: #1c7dad;
-    padding: 30px 40px;
-    color: white;
-    text-align: center;
-
-
-}
-
-
 .filter {
     background-color: #1c7dad;
-    padding: 20px 60px 10px 60px;
     color: white;
-    text-align: right;
-    margin-bottom:10px;
-}
-
-
-#taskTittle {
-    border: none;
-    width: 70%;
-    padding: 10px;
-    float: left;
-
-}
-
-input.check{
-    float:left;
-    width:16px;
-    height:16px;
-    margin-right:10px;
-    position: relative;
+    text-align:right;
+padding:5px 10px 10px 0px;;
+  
 
 }
 
@@ -106,19 +105,28 @@ span.showDone{
 input.showDone{
     width:16px;
     height:16px;
-    margin-right:5px;
     position: relative;
     top:2px;
 }
 
 .edit{
-    margin:0px;
     background: #eee;
     transition: 0.2s;
 }
 
 .wrapper{
     max-width:70%;
-    min-width:400px;
+    min-width:100px;
 }
 
+.input-line{
+    height:30px;
+    margin:auto;
+    width:90%;
+
+}
+
+.header{
+    background: #1c7dad;
+    padding:2em 2em 5em 2em;
+}

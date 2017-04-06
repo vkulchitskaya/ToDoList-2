@@ -40,14 +40,14 @@ export class View {
             if (this.idField.value !== '') {
                 let strFormat = self._replaceSym(this.idField.value);
                 console.log(strFormat);
-                handler(strFormat);
+                handler(strFormat,this.filter.checked);
             }
         });
 
         $on(this.idField,'keydown',()=>{
             event = event || window.event;
             if (event.keyCode === 13 & this.idField.value !== '') {
-                handler(this.idField.value);
+                handler(this.idField.value,this.filter.checked);
             }
         });
 
@@ -102,7 +102,7 @@ export class View {
     _checkTask(target) {
         let id = self._getTaskId(target);
         let done = target.checked;
-        if (done) {
+        if (done & !self.filter.checked) {
             target.parentNode.remove();
         }
         self.onTaskCheck(id,done);

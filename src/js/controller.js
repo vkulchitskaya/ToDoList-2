@@ -12,9 +12,9 @@ export class Controller {
         this.view.bindTaskFilter(this.onTaskFilter.bind(this));
     }
 
-    onTaskCreated(name) {
+    onTaskCreated(name,check) {
         this.storage.addTask(new Task(name,0,false));
-        this.view.display(this.storage.taskCollection);
+        this.onTaskFilter(check);
     }
 
     onTaskRemove(id) {

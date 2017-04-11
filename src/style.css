@@ -45,7 +45,7 @@ ul li.checked {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 15px 16px 15px 16px
+    padding: 17px 17px 17px 17px
 }
 
 .close:hover {
@@ -120,6 +120,57 @@ input.showDone{
     margin:auto;
     width:90%;
 }
+@media screen and (min-width: 100px) and (max-width: 640px){
+        span.showDone,input.showDone{
+        visibility: hidden;
+        }
+}
 
+@media screen and (min-width: 641px) and (max-width: 900px){
+        span.showDone{
+            color:white;
+            text-align: right;
+        }
+        input.showDone{
+    width:16px;
+    height:16px;
+    position: relative;
+    top:2px;
+}
+}
+.checkbox {
+    display: none;
+}
+ 
 
+.checkbox-custom {
+    position: relative;     
+    width: 15px;             
+    height: 15px;            
+    border: 2px solid #ccc;
+    border-radius: 3px;
+}
+ 
+
+.checkbox-custom,
+.task {
+    display: inline-block;
+    vertical-align: middle;
+}
+ 
+
+.checkbox:checked + .checkbox-custom::before {
+    content: "";             
+    display: block;          
+    position: absolute;      
+ 
+
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+ 
+    background: #60e08b;     
+    border-radius: 2px;
+}
 

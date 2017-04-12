@@ -15,7 +15,7 @@ export class View {
             this._editTask(target);
         });
 
-        $delegate(this.idUl, 'input.check', 'click', ({target,}) => {
+        $delegate(this.idUl, 'span.checkbox-custom', 'click', ({target,}) => {
             this._checkTask(target);
         });
         $delegate(this.idUl, 'span.close', 'click', ({target,}) => {
@@ -39,7 +39,6 @@ export class View {
         $on(this.$newTaskButton, 'click', () => {
             if (this.idField.value !== '') {
                 let strFormat = self._replaceSym(this.idField.value);
-                console.log(strFormat);
                 handler(strFormat,this.filter.checked);
             }
         });
@@ -100,21 +99,19 @@ export class View {
         });
     }
     _checkTask(target) {
-        let id = self._getTaskId(target);
-        let done = target.checked;
-        if (done) {
-            target.parentNode.classList.add('checked');
+        let li = target.parentNode.parentNode;
+        let id = li.getAttribute('data-id');
+        let done = false;
+        if (li.className ==='done') {
+            li.classList.remove('done');
         } else {
-            target.parentNode.classList.remove('checked');
+            li.classList.add('done');
+            done = true;
         }
-
         if (done & !self.filter.checked) {
-            target.parentNode.remove();
+            li.remove();
         }
-
         self.onTaskCheck(id,done);
-
-
     }
     _deleteTask(target) {
         let id = self._getTaskId(target);

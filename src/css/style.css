@@ -127,22 +127,21 @@ input.showDone{
 }
 
 @media screen and (min-width: 641px) and (max-width: 900px){
-        span.showDone{
-            color:white;
-            text-align: right;
-        }
-        input.showDone{
-    width:16px;
-    height:16px;
-    position: relative;
-    top:2px;
-}
+    span.showDone{
+        color:white;
+        text-align: right;
+    }
+    input.showDone{
+        width:16px;
+        height:16px;
+        position: relative;
+        top:2px;
+    }
 }
 .checkbox {
     display: none;
 }
  
-
 .checkbox-custom {
     position: relative;     
     width: 15px;             
@@ -151,26 +150,31 @@ input.showDone{
     border-radius: 3px;
 }
  
-
-.checkbox-custom,
-.task {
+.checkbox-custom,.task {
     display: inline-block;
     vertical-align: middle;
 }
  
-
 .checkbox:checked + .checkbox-custom::before {
     content: "";             
     display: block;          
     position: absolute;      
  
-
     top: 2px;
     right: 2px;
     bottom: 2px;
     left: 2px;
  
-    background: #60e08b;     
+    background-image: url(tick.png);
+    background-size: 12px 12px;         
     border-radius: 2px;
 }
 
+li.done>span.task{
+    text-decoration:line-through;    
+}
+
+li.done{
+    background:#908f8f !important;
+    color:white;   
+}

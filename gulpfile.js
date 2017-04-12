@@ -27,6 +27,7 @@ gulp.task('webpack:build', function (callback) {
     webpack(webpackConfig).run(onBuild(callback));
     copyhtml();
     copycss();
+    copyimg();
 });
 
 gulp.task('webpack-dev-server', function (callback) {
@@ -36,6 +37,7 @@ gulp.task('webpack-dev-server', function (callback) {
     myConfig.devtool = 'inline-source-map';
     copyhtml();
     copycss();
+    copyimg();
 
     // Start a webpack-dev-server
     new WebpackDevServer(webpack(myConfig), {
@@ -76,6 +78,11 @@ function copyhtml() {
 }
 
 function copycss() {
-    gulp.src('src/style.css')
+    gulp.src('src/css/style.css')
+        .pipe(gulp.dest('build'));
+}
+
+function copyimg() {
+    gulp.src('src/img/*.png')
         .pipe(gulp.dest('build'));
 }

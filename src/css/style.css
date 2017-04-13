@@ -121,8 +121,11 @@ input.showDone{
     width:90%;
 }
 @media screen and (min-width: 100px) and (max-width: 640px){
-        span.showDone,input.showDone{
-        visibility: hidden;
+        div.filter{
+            display: none;
+        }
+        div.header{
+            height:60px;
         }
 }
 

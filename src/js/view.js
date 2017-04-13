@@ -81,6 +81,13 @@ export class View {
         if (this.idField!==undefined) {
             this.idField.value='';
         }
+        if (!self.filter.checked) {
+            let doneTask =qsa('.done');
+            doneTask.forEach(function (item) {
+                item.remove();
+            });
+            console.log(doneTask);
+        }
     }
 
     _editTask(target) {
@@ -114,6 +121,7 @@ export class View {
         self.onTaskCheck(id,done);
     }
     _deleteTask(target) {
+        console.log(target);
         let id = self._getTaskId(target);
         self.onTaskRemove(id);
     }

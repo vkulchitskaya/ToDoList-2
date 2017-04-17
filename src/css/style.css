@@ -1,183 +1,210 @@
-body{
-    font-size:0.8em;
-    font-family:'Arial';
-    margin:0.5em;
-    padding:0;
+body
+{
+	font-family: 'Arial';
+	font-size: 0.8em;
+	margin: 0.5em;
+	padding: 0;
 }
-
-a{
-    text-decoration: none;
+a
+{
+	text-decoration: none;
 }
-
-.wrapper{
-    max-width:70%;
-    min-width:160px;
+.wrapper
+{
+	max-width: 70%;
+	min-width: 160px;
 }
-
-ul {
-    margin: 0;
-    padding: 0;
+ul
+{
+	margin: 0;
+	padding: 0;
 }
-
-ul li {
-    position: relative;
-    padding: 15px 8px 15px 40px;
-    background: #eee;
-    transition: 0.2s;
-    word-wrap: break-word;
-    list-style-type: none;
+ul li
+{
+	background: #eee;
+	list-style-type: none;
+	padding: 15px 8px 15px 40px;
+	position: relative;
+	transition: 0.2s;
+	word-wrap: break-word;
 }
-
-ul li:nth-child(odd) {
-    background: #f9f9f9;
+ul li:nth-child(odd)
+{
+	background: #f9f9f9;
 }
-
-ul li:hover {
-    background: #ddd;
+ul li:hover
+{
+	background: #ddd;
 }
-
-ul li.checked {
-    background: #888;
-    color: #fff;
-    text-decoration: line-through;
+ul li.checked
+{
+	background: #888;
+	color: #fff;
+	text-decoration: line-through;
 }
-.close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 17px 17px 17px 17px
+.close
+{
+	padding: 17px 17px 17px 17px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
-
-.close:hover {
-    background-color: #f7837a;
-    color: white;
+.close:hover
+{
+	background-color: #f7837a;
+	color: white;
 }
-
-input.check{
-    float:left;
-    width:16px;
-    height:16px;
-    margin-right:10px;
-    position: relative;
+input.check
+{
+	float: left;
+	height: 16px;
+	margin-right: 10px;
+	position: relative;
+	width: 16px;
 }
-
-.header {
-    background-color: #1c7dad;
-    color: white;
-    text-align: center;
-    padding:2em 2em 3em 2em;    
+.header
+{
+	background-color: #1c7dad;
+	color: white;
+	padding: 2em 2em 4em 2em;
+	text-align: center;
 }
-
-#taskTittle {
-    border: none;
-    width: 70%;
-    padding:10px 0px 10px 10px;
-    margin-bottom:10px;
-    min-width:60px;
+#taskTittle
+{
+	border: none;
+	margin-bottom: 10px;
+	min-width: 60px;
+	padding: 10px 0px 10px 10px;
+	width: 70%;
 }
-
-#addButton {
-    background: #d9d9d9;
-    color: #555;
-    transition: 0.3s;
-    display: inline-block;
-    height:50%;
-    width:26%;
-    padding:10px 0px;
-    min-width:30px;
+#addButton
+{
+	background: #d9d9d9;
+	color: #555;
+	display: inline-block;
+	height: 50%;
+	min-width: 30px;
+	padding: 10px 0px;
+	width: 26%;
 }
-
-#addButton:hover {
-    background-color: #bbb;
+#addButton:hover
+{
+	background-color: #bbb;
 }
-
-.filter {
-    background-color: #1c7dad;
-    color: white;
-    text-align:right;
-    padding:15px 10px 10px 10px;;
+.filter
+{
+	background-color: #1c7dad;
+	color: white;;
+	text-align: right;
 }
-
-span.showDone{
-    color:white;
-    text-align: right;
+span.showDone
+{
+	color: white;
+	text-align: right;
 }
-
-input.showDone{
-    width:16px;
-    height:16px;
-    position: relative;
-    top:2px;
+input.showDone
+{
+	height: 16px;
+	position: relative;
+	top: 2px;
+	width: 16px;
 }
-
-.edit{
-    background: #eee;
-    transition: 0.2s;
+.edit
+{
+	background: #eee;
+	transition: 0.2s;
 }
-
-.input-line{
-    height:30px;
-    margin:auto;
-    width:90%;
+.input-line
+{
+	height: 30px;
+	margin: auto;
+	width: 90%;
 }
-@media screen and (min-width: 100px) and (max-width: 640px){
-        div.filter{
-            display: none;
-        }
-        div.header{
-            height:60px;
-        }
+@media screen and (min-width: 100px) and (max-width: 640px)
+{
+	div.filter
+	{
+		display: none;
+	}
+	div.header
+	{
+		height: 60px;
+	}
+	div.input-line
+	{
+		margin: 0;
+		padding: 0px;
+		width: 100%;
+	}
+	#taskTittle
+	{
+		border: none;
+		height: 30px;
+		padding: 0px;
+		padding: 5px 0px;
+		text-align: center;
+		width: 100%;
+	}
+	#addButton
+	{
+		display: block;
+		display: inline-block;
+		height: 50%;
+		padding: 10px 0px;
+		width: 100%;
+	}
 }
-
-@media screen and (min-width: 641px) and (max-width: 900px){
-    span.showDone{
-        color:white;
-        text-align: right;
-    }
-    input.showDone{
-        width:16px;
-        height:16px;
-        position: relative;
-        top:2px;
-    }
+@media screen and (min-width: 641px) and (max-width: 900px)
+{
+	span.showDone
+	{
+		color: white;
+		text-align: right;
+	}
+	input.showDone
+	{
+		height: 16px;
+		position: relative;
+		top: 2px;
+		width: 16px;
+	}
 }
-.checkbox {
-    display: none;
+.checkbox
+{
+	display: none;
 }
- 
-.checkbox-custom {
-    position: relative;     
-    width: 15px;             
-    height: 15px;            
-    border: 2px solid #ccc;
-    border-radius: 3px;
+.checkbox-custom
+{
+	border: 2px solid #ccc;
+	border-radius: 3px;
+	height: 15px;
+	position: relative;
+	width: 15px;
 }
- 
-.checkbox-custom,.task {
-    display: inline-block;
-    vertical-align: middle;
+.checkbox-custom,.task
+{
+	display: inline-block;
+	vertical-align: middle;
 }
- 
-.checkbox:checked + .checkbox-custom::before {
-    content: "";             
-    display: block;          
-    position: absolute;      
- 
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
- 
-    background-image: url(tick.png);
-    background-size: 12px 12px;         
-    border-radius: 2px;
+.checkbox:checked + .checkbox-custom::before
+{
+	background-image: url(tick.png);
+	background-size: 12px 12px;
+	border-radius: 2px;
+	bottom: 2px;
+	content: "";
+	display: block;
+	left: 2px;
+	position: absolute;
+	right: 2px;
+	top: 2px;
 }
-
-li.done>span.task{
-    text-decoration:line-through;    
+li.done>span.task
+{
+	text-decoration: line-through;
 }
-
-li.done{
-    background:#908f8f !important;
-    color:white;   
+li.done
+{
+	background: #908f8f !important;
+	color: white;
 }
